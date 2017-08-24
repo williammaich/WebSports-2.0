@@ -13,10 +13,8 @@ Visando a dificuldade de proprietários de quadras esportivas, com o grande núm
 
 ### Tecnologias  
 1. Para auxílio e diminuição do código, utilizamos o [Laravel](https://laravel.com/).  
-1. Para gerenciamento de dependências utilizamos o ***********************  
-1. Ferramenta de Mapeamento Objeto-Relacional  ***********************  
-1. Para Front-end  ***********************
+1. Para gerenciamento de dependências utilizamos o [Composer](https://getcomposer.org/)  
+1. Ferramenta de Mapeamento Objeto-Relacional  [Eloquent ORM](https://laravel.com/docs/5.0/eloquent)  
+1. Para Front-end [Angular JS](https://angularjs.org/)
 1. Plugins principal [FullCalendar.js](https://fullcalendar.io/)
-1. Para versionamento [GitHub](https://github.com/) e [Git](https://git-scm.com/).  
-
-### Instalação para Teste  
+1. Para versionamento [GitHub](https://github.com/) e [Git](https://git-scm.com/).

@@ -2,7 +2,7 @@
 **Projeto para utilização em Quadras Esportivas.**  
 
 ## Integrantes  
-* Miguel Novack Boanova 
+* **Miguel Novack Boanova** 
 * Róger Javiel Rezende 
 * William Maich Kolosque
 * Carlos Gustavo Etchepare

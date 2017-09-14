@@ -28,7 +28,7 @@ O trabalho tem por objetivo geral desenvolver um programa para gerenciar quadras
 1. Para auxílio e diminuição do código, utilizamos o [Laravel 5.5](https://laravel.com/).  
 1. Para gerenciamento de dependências utilizamos o [Composer](https://getcomposer.org/)  
 1. Ferramenta de Mapeamento Objeto-Relacional  [Eloquent ORM](https://laravel.com/docs/5.5/eloquent)  
-1. Para Front-end [Angular JS](https://angularjs.org/)
+1. Para Front-end [VueJS](https://vuejs.org/)
 1. Plugins principal [FullCalendar.js](https://fullcalendar.io/)
 1. Para versionamento [GitHub](https://github.com/) e [Git](https://git-scm.com/).
 1. Para Testes de Back-end utilizamos o [PHPUnit com Laravel](https://laravel.com/docs/5.5/testing)

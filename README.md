@@ -31,7 +31,7 @@ O trabalho tem por objetivo geral desenvolver um programa para gerenciar quadras
 1. Para Front-end [Angular JS](https://angularjs.org/)
 1. Plugins principal [FullCalendar.js](https://fullcalendar.io/)
 1. Para versionamento [GitHub](https://github.com/) e [Git](https://git-scm.com/).
-1. Para Testes de Back-end usaremos o [PHPUnit com Laravel](https://laravel.com/docs/5.5/testing)
-1. Para Testes de Front-end usaremos o [Laravel Dusk](https://laravel.com/docs/5.5/dusk)
+1. Para Testes de Back-end utilizamos o [PHPUnit com Laravel](https://laravel.com/docs/5.5/testing)
+1. Para Testes de Front-end utilizamos o [Laravel Dusk](https://laravel.com/docs/5.5/dusk)
 
 Mais informações acesse a [wiki](https://github.com/mglnb/WebSports-2.0/wiki) 

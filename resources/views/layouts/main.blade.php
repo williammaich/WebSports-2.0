@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-    @yield('conteudo')
-    <script src="/js/app.js"></script>
+<div id="app">
+
+    <router-view></router-view>
+</div>
+<script src="/js/app.js"></script>
 </body>
 </html>

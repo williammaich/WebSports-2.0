@@ -16,4 +16,4 @@ Route::get('/', function () {
 });
 
 
-Route::view('/login', 'authentication.login');
+Route::post('/login', 'LoginController@index');

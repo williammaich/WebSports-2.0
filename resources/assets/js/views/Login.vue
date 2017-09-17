@@ -6,7 +6,7 @@
     .bg-img {
         background: linear-gradient(to right, rgba(54, 14, 120, 0.5), rgba(98, 81, 113, 0.6)),
         linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)),
-        url("http://www.wallpapersin4k.org/wp-content/uploads/2017/04/High-School-Football-Wallpaper-2.jpg") center;
+        url("../../img/bg-login.jpg") center;
         -webkit-background-size: cover;
         background-size: cover;
         padding: 0 50px;
@@ -19,7 +19,6 @@
         h4 {
             font-size: 19px;
         }
-
         font-weight: 300;
         letter-spacing: .5px;
 
@@ -55,7 +54,7 @@
             font-size: 13px;
             transition: .3s;
         }
-        &:focus ~ label {
+        &:focus ~ label, & ~ label.active {
             top: -14px;
             font-size: 9px;
             transition: .3s;
@@ -72,9 +71,9 @@
             margin-right: 10px;
 
             &:before {
-                -webkit-transition: all 0.3s ease-in-out border-top-style 0.0s ;
-                -moz-transition: all 0.3s ease-in-out border-top-style 0.0s ;
-                transition: all 0.3s  ease-in-out, border-top-style 0.0s ;
+                -webkit-transition: all 0.3s ease-in-out, border-top-style 0.0s;
+                -moz-transition: all 0.3s ease-in-out, border-top-style 0.0s;
+                transition: all 0.3s ease-in-out, border-top-style 0.0s;
                 content: "";
                 position: absolute;
                 left: 0;
@@ -122,7 +121,8 @@
         font-size: 12px;
     }
 
-    a {
+    a, a:not([href]):not([tabindex]) {
+        cursor: pointer;
         color: rgba(54, 14, 120, 0.5);
         &:hover {
             color: rgba(54, 14, 120, 1)
@@ -145,64 +145,76 @@
 </style>
 
 
-<template>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-7 col-md-6 d-none d-md-block bg-img">
-                <div class="row">
-                    <div class="title align-self-end">
-                        <h2>web<strong>sports.</strong></h2>
-                        <br>
-                        <p>O seu sistema para gerenciar suas quadras</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-md-6 col-xl-4 d-flex justify-content-center align-items-center">
-                <div class="login-box">
-                    <h4>Login</h4>
-                    <p>Entre em sua conta</p>
+<template lang="pug">
+    .container-fluid
+        .row
+            .col-lg-7.col-md-6.col-xl-8.d-none.d-md-block.bg-img
+                .row
+                    .title.align-self-end
+                        h2 web<strong>sports.</strong>
+                        br
+                        p O seu sistema para gerenciar suas quadras
 
-                    <form action="">
-                        <div class="form-group">
-                            <input type="email" name="email" id="email">
-                            <label for="email">E-mail</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" name="password" id="password">
-                            <label for="password">Senha</label>
-                        </div>
-                        <div class="form-group d-flex justify-content-between">
-                            <label for="rememberme"><input name="rememberme" id="rememberme" type="checkbox"> Lembrar-me</label>
-                            <a class="text-muted">Esqueceu sua senha?</a>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-login btn-block btn-primary" type="submit">LOGIN</button>
-                        </div>
-                    </form>
-                    <div class="divider">
-                        <span class="hr">Ou logue-se com</span>
-                    </div>
-                    <div class="text-center">
-                        <a href="" class="btn btn-square btn-facebook">FB</a>
-                        <a href="" class="btn btn-square btn-google">GG</a>
-                        <a href="" class="btn btn-square btn-twitter">TW</a>
-                    </div>
-                    <hr>
-                    <p>Não tens conta?
-                        <router-link to="/register">Registre-se</router-link>
-                    </p>
-                </div>
-            </div>
+            .col-lg-5.col-md-6.col-xl-4.d-flex.justify-content-center.align-items-center(v-if="!isForgot")
+                .login-box
+                    h4 Login
+                    p Entre em sua conta
+                    form(action="/login" method="post")
 
-        </div>
-    </div>
+                        div(v-for="input in inputs")
+                            .form-group
+                                input(v-if="input.type == 'email'" type="email" :name="input.for" v-model="input.value" :id="input.for" @focus="input.isActive = true" @blur="input.isActive = false" required)
+                                input(v-if="input.type == 'password'" type="password" :name="input.for" v-model="input.value" :id="input.for" @focus="input.isActive = true" @blur="input.isActive = false" required)
+                                label(v-bind:for="input.for" :class="{active: input.isActive || input.value}") {{input.label}}
+
+                        .form-group.d-flex.justify-content-between
+                            input(type="hidden" name="_token" :value="csrf")
+                            label(for="rememberme")
+                                input(name="rememberme" id="rememberme" type="checkbox")
+                                | Lembrar-me
+
+                            a(@click="isForgot = true") Esqueceu sua senha?
+
+                        .form-group
+                            button.btn.btn-login.btn-block.btn-primary(type="submit") LOGIN
+
+            .col-lg-5.col-md-6.col-xl-4.d-flex.justify-content-center.align-items-center(v-else)
+                forgot
+                    a(@click="isForgot = false" slot="voltar") Voltar
+
+                    .form-group(slot="submit")
+                        button.btn.btn-login.btn-block.btn-primary(type="submit") ENVIAR
 </template>
 
-<script>
-    module.exports = {
+<script lang="babel" type="text/babel">
+    import Forgot from '../components/Forgot.vue';
+
+    export default {
+        components : {
+          Forgot
+        },
         data: function () {
             return {
-                hello: ''
+                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                isForgot: false,
+                inputs: [
+                    {
+                        for: 'email',
+                        type: 'email',
+                        label: 'E-mail',
+                        value: '',
+                        error: '',
+                        isActive: ''
+                    },
+                    {
+                        for: 'password',
+                        type: 'password',
+                        label: 'Senha',
+                        value: '',
+                        error: '',
+                        isActive: ''
+                    }
+                ]
             }
         }
     }

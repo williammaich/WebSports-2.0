@@ -15,5 +15,3 @@ Route::get('/', function () {
     return view('layouts.main');
 });
 
-
-Route::post('/login', 'LoginController@index');

@@ -168,7 +168,6 @@
                                 label(v-bind:for="input.for" :class="{active: input.isActive || input.value}") {{input.label}}
 
                         .form-group.d-flex.justify-content-between
-                            input(type="hidden" name="_token" :value="csrf")
                             label(for="rememberme")
                                 input(name="rememberme" id="rememberme" type="checkbox")
                                 | Lembrar-me
@@ -176,6 +175,7 @@
                             a(@click="isForgot = true") Esqueceu sua senha?
 
                         .form-group
+                            input(type="hidden" name="_token" :value="csrf")
                             button.btn.btn-login.btn-block.btn-primary(type="submit") LOGIN
 
             .col-lg-5.col-md-6.col-xl-4.d-flex.justify-content-center.align-items-center(v-else)

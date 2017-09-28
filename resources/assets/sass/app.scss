@@ -1,23 +1,32 @@
-
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,600");
-
 // Variables
 @import "variables";
-
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
-
 
 body {
   background: #FFF;
   min-height: 100%;
 }
-*{
+
+* {
   font-family: 'Roboto', sans-serif;
 
 }
+
 .row.no-gap, .row.no-gutters {
   margin-left: 0;
   margin-right: 0;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s, filter .2s;
+
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  filter: blur(5px);
+}
+

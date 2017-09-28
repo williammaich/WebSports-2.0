@@ -10216,3 +10216,18 @@ body {
   margin-right: 0;
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-transition: opacity .5s, -webkit-filter .2s;
+  transition: opacity .5s, -webkit-filter .2s;
+  transition: opacity .5s, filter .2s;
+  transition: opacity .5s, filter .2s, -webkit-filter .2s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  -webkit-filter: blur(5px);
+          filter: blur(5px);
+}
+

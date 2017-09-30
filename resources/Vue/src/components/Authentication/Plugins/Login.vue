@@ -24,7 +24,7 @@ export default {
     },
     userRoute: {
       type: String,
-      default: 'api/user'
+      default: 'api/users'
     },
     clientId: {
       type: [Number, String],
@@ -65,7 +65,7 @@ export default {
         client_secret: this.secret,
         username: this.login.user,
         password: this.login.password,
-        scope: ''
+        scope: '*'
       }
 
       const authUser = {}
@@ -74,7 +74,7 @@ export default {
         .then(response => {
           authUser.access_token = response.data.access_token
           authUser.refresh_token = response.data.refresh_token
-
+          localStorage.setItem('token', authUser.access_token)
           const headers = this.getHeaders(authUser.access_token)
 
           axios.get(this.userUrl, {

@@ -1,8 +1,8 @@
 <template>
   <login
     api-url="http://localhost:8000"
-    clientId="1"
-    secret="KzvqoGLipYDHrZJSehxBwxDXfhsX2Adyk1THdU8x"
+    clientId="3"
+    secret="Qi65o4qVSrnlIvuLXWeITFIxhjq5RSThrM8XH92b"
     @success="handleLogin"
     @failed="handleErrors">
     </login>
@@ -22,7 +22,7 @@ export default {
       instance.defaults.headers.common['Authorization'] = payload.headers.Authorization
     },
     handleErrors (errors) {
-      alert('Authorization error' + errors)
+      console.error('Authorization error' + errors)
     }
   }
 }

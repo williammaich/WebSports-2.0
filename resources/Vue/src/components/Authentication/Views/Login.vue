@@ -20,6 +20,7 @@ export default {
     handleLogin (payload) {
       this.$store.dispatch('setUser', payload.authUser)
       instance.defaults.headers.common['Authorization'] = payload.headers.Authorization
+      this.$router.push('admin/dashboard')
     },
     handleErrors (errors) {
       console.error('Authorization error' + errors)

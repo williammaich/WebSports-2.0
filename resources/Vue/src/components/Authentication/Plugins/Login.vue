@@ -24,7 +24,7 @@ export default {
     },
     userRoute: {
       type: String,
-      default: 'api/users'
+      default: 'api/user'
     },
     clientId: {
       type: [Number, String],

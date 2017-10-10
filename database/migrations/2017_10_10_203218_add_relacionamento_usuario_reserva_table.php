@@ -17,7 +17,7 @@ class AddRelacionamentoUsuarioReservaTable extends Migration
             $table->integer('usuario_id')->unsigned();
 
             $table->foreign('usuario_id')
-                ->references('id')->on('usuario')
+                ->references('id')->on('usuarios')
                 ->onDelete('restrict');
         });
     }

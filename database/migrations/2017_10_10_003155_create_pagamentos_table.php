@@ -15,7 +15,7 @@ class CreatePagamentosTable extends Migration
     {
         Schema::create('pagamentos', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('id', 9, 2);
+            $table->double('valor', 9, 2);
             $table->dateTime('dataPagamento');
             $table->timestamps();
         });

@@ -14,7 +14,11 @@ class AddRelacionamentoEnderecoUsuarioTable extends Migration
     public function up()
     {
         Schema::table('usuarios', function (Blueprint $table) {
-            //
+            $table->integer('endereco_id')->unsigned();
+
+            $table->foreign('endereco_id')
+                ->references('id')->on('enderecos')
+                ->onDelete('restrict');
         });
     }
 

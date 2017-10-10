@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRelacionamentoPagamentoUsuarioTable extends Migration
+class AddRelacionamentoUsuarioReservaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,7 @@ class AddRelacionamentoPagamentoUsuarioTable extends Migration
             $table->integer('usuario_id')->unsigned();
 
             $table->foreign('usuario_id')
-                ->references('id')->on('usuarios')
+                ->references('id')->on('usuario')
                 ->onDelete('restrict');
         });
     }

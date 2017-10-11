@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(QuadrasTableSeeder::class);
         //$this->call(ReservasTableSeeder::class);
         $this->call(TipoQuadrasTableSeeder::class);
-        //$this->call(UsuariosTableSeeder::class);
+        $this->call(UsuariosTableSeeder::class);
     }
 }

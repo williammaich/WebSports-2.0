@@ -6,12 +6,12 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 import Login from '../components/Authentication/Views/Login.vue'
 // Admin pages
 import Overview from 'src/components/Dashboard/Views/Overview.vue'
-import UserProfile from 'src/components/Dashboard/Views/UserProfile.vue'
+import UserProfile from 'src/components/Dashboard/Views/Clientes.vue'
 import Notifications from 'src/components/Dashboard/Views/Notifications.vue'
 import Icons from 'src/components/Dashboard/Views/Icons.vue'
 import Maps from 'src/components/Dashboard/Views/Maps.vue'
 import Typography from 'src/components/Dashboard/Views/Typography.vue'
-import TableList from 'src/components/Dashboard/Views/TableList.vue'
+import TableList from 'src/components/Dashboard/Views/Reservas.vue'
 
 const routes = [
   {
@@ -46,7 +46,8 @@ const routes = [
       {
         path: 'icons',
         name: 'icons',
-        component: Icons
+        component: Icons,
+        meta: { requiresAuth: true }
       },
       {
         path: 'maps',
@@ -63,9 +64,14 @@ const routes = [
         name: 'table-list',
         component: TableList
       }
-    ]
+
+    ],
+
+
   },
+
   { path: '*', component: NotFound }
 ]
+
 
 export default routes

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRelacionamentoUsuarioReservaTable extends Migration
+class AddRelacionamentoEnderecoCliente extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class AddRelacionamentoUsuarioReservaTable extends Migration
      */
     public function up()
     {
-        Schema::table('reservas', function (Blueprint $table) {
-            $table->integer('usuario_id')->unsigned();
+        Schema::table('clientes', function (Blueprint $table) {
+            $table->integer('endereco_id')->unsigned();
 
-            $table->foreign('usuario_id')
-                ->references('id')->on('usuarios')
+            $table->foreign('endereco_id')
+                ->references('id')->on('enderecos')
                 ->onDelete('restrict');
         });
     }
@@ -29,7 +29,7 @@ class AddRelacionamentoUsuarioReservaTable extends Migration
      */
     public function down()
     {
-        Schema::table('reservas', function (Blueprint $table) {
+        Schema::table('clientes', function (Blueprint $table) {
             //
         });
     }

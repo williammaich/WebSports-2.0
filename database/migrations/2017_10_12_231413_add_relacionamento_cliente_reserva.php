@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRelacionamentoPagamentoReservaTable extends Migration
+class AddRelacionamentoClienteReserva extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,11 @@ class AddRelacionamentoPagamentoReservaTable extends Migration
     public function up()
     {
         Schema::table('reservas', function (Blueprint $table) {
-                        $table->integer('pagamento_id')->unsigned();
+            $table->integer('cliente_id')->unsigned();
 
-                        $table->foreign('pagamento_id')
-                            ->references('id')->on('pagamentos')
-                            ->onDelete('restrict');
+            $table->foreign('cliente_id')
+                ->references('id')->on('clientes')
+                ->onDelete('restrict');
         });
     }
 

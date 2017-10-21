@@ -21,8 +21,9 @@ const mutations = {
 }
 
 const actions = {
+
   'load-reservas'(context) {
-    this.$http.get('http://localhost:8000/api/reservas')
+    Vue.http.get('http://localhost:8000/api/reservas')
       .then(response => {
         let reservas = response.data.map(element => {
           return {

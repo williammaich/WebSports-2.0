@@ -49,12 +49,18 @@ Object.defineProperty(Vue.prototype, '$Chartist', {
 })
 
 router.beforeEach((to,  from, next) => {
+  if(interceptor.check_empty_token()) {
+    interceptor.check_auth(router)
+  }
     Vue.http.get('http://localhost:8000/api/user')
       .then(response => {
-        console.warn(response.data)
+        //console.warn(response)
       })
-    interceptor.check_empty_token()
-    interceptor.check_auth()
+      .catch(error => {
+        //console.warn(error);
+        next('/login')
+      })
+
     next()
 })
 

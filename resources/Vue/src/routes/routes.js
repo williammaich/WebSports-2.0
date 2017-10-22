@@ -16,6 +16,7 @@ import Reservas from 'src/components/Dashboard/Views/Reservas.vue'
 const routes = [
   {
     path: '/',
+    name: 'login',
     component: Login,
     redirect: '/login'
   },

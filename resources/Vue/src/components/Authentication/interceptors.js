@@ -15,14 +15,15 @@ export default {
     if(!token.access_token) {
       return false
     }
+    return true
   },
-  check_auth() {
+  check_auth(router) {
     let token = getToken()
     Vue.http.interceptors.push((request, next) => {
       request.headers.set('Authorization','Bearer ' + token.access_token)
       next((response) => {
         if(response.status === 401) {
-          window.location.replace('/#/login')
+          router.push('login')
         }
       })
     })

@@ -77,7 +77,24 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dadosFormulario = $request->all();
+
+        $registro = User::find($id);
+
+        User::create($dadosFormulario);
+
+        return response()->json($dadosFormulario);
+
+
+
+        // obtém os dados do form
+        $dados = $request->all();
+
+        // posiciona no registo a ser alterado
+        $reg = Carro::find($id);
+
+        // realiza a alteração
+        $alt = $reg->update($dados);
     }
 
     /**

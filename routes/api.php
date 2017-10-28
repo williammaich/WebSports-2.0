@@ -16,7 +16,10 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['cors', 'auth:api']], function () {
     Route::get('/user', 'HomeController@index');
 
-
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::resource('users', 'UserController');
+
 });
+
+

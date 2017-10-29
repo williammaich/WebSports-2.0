@@ -12,7 +12,7 @@ const state = {
 }
 
 const mutations = {
-  'set-users'(state, user) {
+  'set-user'(state, user) {
     state.user = user;
   },
   'set-reservas'(state, reservas) {
@@ -21,7 +21,9 @@ const mutations = {
 }
 
 const actions = {
-
+  'load-user'(context, user) {
+    context.commit('set-user', user)
+  },
   'load-reservas'(context) {
     Vue.http.get('http://localhost:8000/api/reservas')
       .then(response => {

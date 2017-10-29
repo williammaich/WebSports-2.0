@@ -13,16 +13,26 @@ import Maps from 'src/components/Dashboard/Views/Maps.vue'
 import Typography from 'src/components/Dashboard/Views/Typography.vue'
 import Reservas from 'src/components/Dashboard/Views/Reservas.vue'
 
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+
+Vue.use(VueResource)
+
 const routes = [
   {
-    path: '/',
-    name: 'login',
-    component: Login,
-    redirect: '/login'
-  },
-  {
     path: '/login',
-    component: Login
+    component: Login,
+    beforeEnter: (to, from, next) => {
+      Vue.http
+        .get("http://localhost:8000/api/user")
+        .then(response => {
+          next('/admin/dashboard')
+        })
+        .catch(error => {
+          console.warn(error);
+          next("/login");
+        });
+    }
   },
   {
     path: '/admin',

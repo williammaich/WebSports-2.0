@@ -33,17 +33,35 @@ O trabalho tem por objetivo geral desenvolver um programa para gerenciar quadras
 
 1. Ligue o xampp.
 1. Baixe o projeto e coloque na pasta htdocs do xampp.
-1. Crie o banco de dados com o xampp com o nome
-   "websports".
-1. Abra o terminal e navegue até a pasta
-   htdocs/websports-2.0
-1. Digite o comando no terminal 
-   php artisan serve
-1. Caso der erro digite
-   composer update
-1. Abra o navegador e rode o projeto no 
-   localhost:8000
+1. Crie o banco de dados com o xampp com o nome:
 
+***
+   "websports"
+***
+
+1. Abra o terminal e navegue até a pasta:
+
+***
+   htdocs/websports-2.0
+***
+
+1. Digite o comando no terminal:
+
+***   
+   php artisan serve
+***   
+
+1. Caso der erro digite:
+
+***
+   composer update
+***
+
+1. Abra o navegador e rode o projeto no:
+
+***  
+   localhost:8000
+***
 
 
 

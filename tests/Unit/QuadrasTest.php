@@ -52,6 +52,7 @@ class QuadrasTest extends TestCase
         \App\Quadra::create([
 
             'valorLocacao' => '0',
+
             'tipoQuadra_id' => 1
         ]);
 

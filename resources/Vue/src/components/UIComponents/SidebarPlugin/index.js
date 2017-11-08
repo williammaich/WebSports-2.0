@@ -6,27 +6,27 @@ const SidebarStore = {
     {
       name: 'Dashboard',
       icon: 'ti-panel',
-      path: '/admin/overview'
+      path: '/admin/dashboard'
     },
     {
       name: 'Clientes',
       icon: 'ti-user',
-      path: '/admin/stats'
+      path: '/admin/clientes'
     },
     {
       name: 'Reservas',
       icon: 'ti-timer',
-      path: '/admin/table-list'
+      path: '/admin/reservas'
     },
     {
       name: 'Relatórios',
       icon: 'ti-stats-up',
-      path: '/admin/typography'
+      path: '/admin/relatorios'
     },
     {
       name: 'Sair',
       icon: 'ti-power-off',
-      path: '/admin/icons'
+      path: '/admin/sair'
     }
   ],
   displaySidebar (value) {

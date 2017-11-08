@@ -6,16 +6,17 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 import Login from '../components/Authentication/Views/Login.vue'
 // Admin pages
 import Overview from 'src/components/Dashboard/Views/Overview.vue'
-import UserProfile from 'src/components/Dashboard/Views/UserProfile.vue'
+import Clientes from 'src/components/Dashboard/Views/Clientes.vue'
 import Notifications from 'src/components/Dashboard/Views/Notifications.vue'
 import Icons from 'src/components/Dashboard/Views/Icons.vue'
 import Maps from 'src/components/Dashboard/Views/Maps.vue'
 import Typography from 'src/components/Dashboard/Views/Typography.vue'
-import TableList from 'src/components/Dashboard/Views/TableList.vue'
+import Reservas from 'src/components/Dashboard/Views/Reservas.vue'
 
 const routes = [
   {
     path: '/',
+    name: 'login',
     component: Login,
     redirect: '/login'
   },
@@ -26,17 +27,17 @@ const routes = [
   {
     path: '/admin',
     component: DashboardLayout,
-    redirect: '/admin/stats',
+    redirect: '/admin/dashboard',
     children: [
       {
-        path: 'overview',
-        name: 'overview',
+        path: 'dashboard',
+        name: 'dashboard',
         component: Overview
       },
       {
-        path: 'stats',
-        name: 'stats',
-        component: UserProfile
+        path: 'clientes',
+        name: 'clientes',
+        component: Clientes
       },
       {
         path: 'notifications',
@@ -54,18 +55,23 @@ const routes = [
         component: Maps
       },
       {
-        path: 'typography',
-        name: 'typography',
-        component: Typography
+        path: 'sair',
+        name: 'sair',
+        redirect: '/login'
       },
       {
-        path: 'table-list',
-        name: 'table-list',
-        component: TableList
+        path: 'reservas',
+        name: 'reservas',
+        component: Reservas
       }
-    ]
+
+    ],
+
+
   },
+
   { path: '*', component: NotFound }
 ]
+
 
 export default routes

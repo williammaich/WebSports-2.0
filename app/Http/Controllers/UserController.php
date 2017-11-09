@@ -43,7 +43,9 @@ class UserController extends Controller
 
         User::create($dadosFormulario);
 
+
         return $this->index();
+
     }
 
     /**

@@ -25,7 +25,7 @@ class QuadrasTest extends TestCase
             'tipoQuadra_id' => 1
         ]);
 
-        $this->assertDatabaseHas('Quadras',['valorLocacao' => '100' ]);
+        $this->assertDatabaseHas('quadras',['valorLocacao' => '100' ]);
     }
 
 
@@ -40,23 +40,7 @@ class QuadrasTest extends TestCase
             'tipoQuadra_id' => 1
         ]);
 
-        $this->assertDatabaseHas('Quadras',['valorLocacao' => '0' ]);
-    }
-
-
-    public function test_create_quadra_sem_tipo()
-    {
-
-
-
-        \App\Quadra::create([
-
-            'valorLocacao' => '0',
-
-            'tipoQuadra_id' => 1
-        ]);
-
-        $this->assertDatabaseMissing('Quadras',['valorLocacao' => '0' ]);
+        $this->assertDatabaseHas('quadras',['valorLocacao' => '0' ]);
     }
 
     public function test_create_tipo_quadra()
@@ -85,7 +69,7 @@ class QuadrasTest extends TestCase
 
 
 
-        $this->assertDatabaseHas('Quadras',['valorLocacao' => '0', 'tipoQuadra_id' => $tipo->id]);
+        $this->assertDatabaseHas('quadras',['valorLocacao' => '0', 'tipoQuadra_id' => $tipo->id]);
         $this->assertDatabaseHas('tipo_quadras',['descricao' => 'Quadra do tipo salão']);
     }
 

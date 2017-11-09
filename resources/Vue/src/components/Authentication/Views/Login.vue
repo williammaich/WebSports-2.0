@@ -1,8 +1,8 @@
 <template>
   <login
     api-url="http://localhost:8000"
-    clientId="2"
-    secret="xb0MQJpQy9sXCnokuxobPsFM5AVy5QJunDvjq6Gn"
+    clientId="1"
+    secret="0OCczAHPzDNarQWhkXcE5TyABpXWpDiGgQg6dFEB"
     @success="handleLogin"
     @failed="handleErrors">
     </login>
@@ -18,7 +18,7 @@ export default {
   components: { Login },
   methods: {
     handleLogin (payload) {
-      this.$store.dispatch('load-user', payload.authUser)
+      // this.$store.dispatch('load-user', payload.authUser)
       this.$http.headers.common['Authorization'] = payload.header.Authorization
       console.log(this.$http.headers.common['Authorization'])
       this.$router.push('admin/dashboard')

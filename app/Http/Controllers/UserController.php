@@ -43,7 +43,7 @@ class UserController extends Controller
 
         User::create($dadosFormulario);
 
-        return response()->json($dadosFormulario);
+        return $this->index();
     }
 
     /**

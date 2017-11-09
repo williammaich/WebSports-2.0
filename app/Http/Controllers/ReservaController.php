@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Reserva;
 use Illuminate\Http\Request;
 
 class ReservaController extends Controller
@@ -13,7 +14,9 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        //
+        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get()->toJson();
+
+        return $reserva;
     }
 
     /**
@@ -23,7 +26,11 @@ class ReservaController extends Controller
      */
     public function create()
     {
-        //
+        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
+
+        Reserva::create($reserva);
+
+        return $this->index();
     }
 
     /**

@@ -12,6 +12,10 @@
     font-size: $font-size-h5;
     font-weight: $font-weight-light;
   }
+  th {
+    text-align: center !important;
+    cursor: pointer;
+  }
 
   .radio,
   .checkbox {
@@ -28,6 +32,7 @@
   > tfoot > tr > td {
     padding: 12px;
     vertical-align: middle;
+    
   }
 
   .th-description {

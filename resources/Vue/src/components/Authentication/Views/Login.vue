@@ -1,8 +1,8 @@
 <template>
   <login
     api-url="http://localhost:8000"
-    clientId="3"
-    secret="Qi65o4qVSrnlIvuLXWeITFIxhjq5RSThrM8XH92b"
+    clientId="2"
+    secret="xb0MQJpQy9sXCnokuxobPsFM5AVy5QJunDvjq6Gn"
     @success="handleLogin"
     @failed="handleErrors">
     </login>
@@ -18,8 +18,8 @@ export default {
   components: { Login },
   methods: {
     handleLogin (payload) {
-      // this.$store.dispatch('setUser', payload.authUser)
-      // instance.defaults.headers.common['Authorization'] = payload.headers.Authorization
+      this.$store.dispatch('setUser', payload.authUser)
+      this.$http.headers.common['Authorization'] = payload.headers.Authorization
       this.$router.push('admin/overview')
     },
     handleErrors (errors) {

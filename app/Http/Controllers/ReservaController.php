@@ -26,11 +26,7 @@ class ReservaController extends Controller
      */
     public function create()
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
-
-        Reserva::create($reserva);
-
-        return $this->index();
+        //
     }
 
     /**
@@ -41,7 +37,11 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
+
+        Reserva::create($reserva);
+
+        return $this->index();
     }
 
     /**
@@ -75,7 +75,13 @@ class ReservaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
+
+        $reg = Reserva::find(id);
+
+        $reg->update($reserva);
+
+        return $this->index();
     }
 
     /**
@@ -86,6 +92,10 @@ class ReservaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reg = Reserva::find(id);
+
+        $reg->delete();
+
+        return $this->index();
     }
 }

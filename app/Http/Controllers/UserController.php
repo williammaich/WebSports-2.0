@@ -77,24 +77,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // obtém os dados do form
         $dadosFormulario = $request->all();
 
-        $registro = User::find($id);
-
-        User::create($dadosFormulario);
-
-        return response()->json($dadosFormulario);
-
-
-
-        // obtém os dados do form
-        $dados = $request->all();
-
         // posiciona no registo a ser alterado
-        $reg = Carro::find($id);
+        $reg = User::find($id);
 
         // realiza a alteração
-        $alt = $reg->update($dados);
+        $reg->update($dadosFormulario);
+
+        return $this->index();
     }
 
     /**
@@ -105,6 +97,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // posiciona no registo a ser deletado
+        $reg = User::find($id);
+
+        // Deleta
+        $reg->delete();
+
+        return $this->index();
     }
 }

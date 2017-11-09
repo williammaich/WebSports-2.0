@@ -71,7 +71,13 @@ export default {
       this.$http.post(this.loginUrl, postData)
         .then(res=> {
           localStorage['token'] = JSON.stringify(res.body)
-          this.$router.push('/admin/overview')
+          let authUser = {
+            user: this.login.user,
+            token: res.data.access_token,
+            refresh_token: res.data.refresh_token
+          }
+          let header = this.getHeaders(authUser.token)
+          this.$emit('success', {authUser, header})
         })
 
 //      const authUser = {}

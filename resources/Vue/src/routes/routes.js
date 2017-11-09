@@ -12,17 +12,18 @@ import Icons from 'src/components/Dashboard/Views/Icons.vue'
 import Maps from 'src/components/Dashboard/Views/Maps.vue'
 import Typography from 'src/components/Dashboard/Views/Typography.vue'
 import Reservas from 'src/components/Dashboard/Views/Reservas.vue'
+import Usuarios from 'src/components/Dashboard/Views/Usuarios.vue'
+
+
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+
+Vue.use(VueResource)
 
 const routes = [
   {
-    path: '/',
-    name: 'login',
-    component: Login,
-    redirect: '/login'
-  },
-  {
     path: '/login',
-    component: Login
+    component: Login,
   },
   {
     path: '/admin',
@@ -63,6 +64,11 @@ const routes = [
         path: 'reservas',
         name: 'reservas',
         component: Reservas
+      },
+      {
+        path: 'usuarios',
+        name: 'usuarios',
+        component: Usuarios
       }
 
     ],

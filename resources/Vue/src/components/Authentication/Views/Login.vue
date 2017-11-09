@@ -18,9 +18,10 @@ export default {
   components: { Login },
   methods: {
     handleLogin (payload) {
-      this.$store.dispatch('setUser', payload.authUser)
-      this.$http.headers.common['Authorization'] = payload.headers.Authorization
-      this.$router.push('admin/overview')
+      this.$store.dispatch('load-user', payload.authUser)
+      this.$http.headers.common['Authorization'] = payload.header.Authorization
+      console.log(this.$http.headers.common['Authorization'])
+      this.$router.push('admin/dashboard')
     },
     handleErrors (errors) {
       console.error('Authorization error' + errors)

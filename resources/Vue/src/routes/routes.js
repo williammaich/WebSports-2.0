@@ -12,6 +12,8 @@ import Icons from 'src/components/Dashboard/Views/Icons.vue'
 import Maps from 'src/components/Dashboard/Views/Maps.vue'
 import Typography from 'src/components/Dashboard/Views/Typography.vue'
 import Reservas from 'src/components/Dashboard/Views/Reservas.vue'
+import Usuarios from 'src/components/Dashboard/Views/Usuarios.vue'
+
 
 import Vue from 'vue'
 import VueResource from 'vue-resource'
@@ -22,17 +24,6 @@ const routes = [
   {
     path: '/login',
     component: Login,
-    beforeEnter: (to, from, next) => {
-      Vue.http
-        .get("http://localhost:8000/api/user")
-        .then(response => {
-          next('/admin/dashboard')
-        })
-        .catch(error => {
-          console.warn(error);
-          next("/login");
-        });
-    }
   },
   {
     path: '/admin',
@@ -73,6 +64,11 @@ const routes = [
         path: 'reservas',
         name: 'reservas',
         component: Reservas
+      },
+      {
+        path: 'usuarios',
+        name: 'usuarios',
+        component: Usuarios
       }
 
     ],

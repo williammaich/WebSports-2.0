@@ -7,13 +7,13 @@ Vue.use(Vuex)
 
 
 const state = {
-  user: {},
+  users: [],
   reservas: []
 }
 
 const mutations = {
-  'set-user'(state, user) {
-    state.user = user;
+  'set-user'(state, users) {
+    state.users = users;
   },
   'set-reservas'(state, reservas) {
     state.reservas = reservas;
@@ -21,8 +21,28 @@ const mutations = {
 }
 
 const actions = {
-  'load-user'(context, user) {
-    context.commit('set-user', user)
+  'load-users'(context) {
+    Vue.http.get('http://localhost:8000/api/users')
+    .then(response => {
+      let users = response.data.map(element => {
+        return {
+          'id' : element.id,
+          'nome do usuario': element.name,
+          'email': element.email,
+          'senha' : '*********'
+        }
+      })
+      context.commit('set-user', users)
+    })
+  },
+  'set-user'(context, user) {
+    Vue.http.post(`http://localhost:8000/api/users/${user.id}`, {
+      'name' : user.nome,
+      'email' : user.email,
+      'password' : user.senha
+    }).then(response => {
+      console.log(response.status)
+    })
   },
   'load-reservas'(context) {
     Vue.http.get('http://localhost:8000/api/reservas')

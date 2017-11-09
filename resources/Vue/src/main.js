@@ -51,20 +51,20 @@ Vue.http.interceptors.push(function(request, next) {
   }
   // modify request
   request.headers.set("Authorization", "Bearer " + token.access_token);
-  console.log(request.headers.get("Authorization"));
+  // console.log(request.headers.get("Authorization"));
   request.headers.set("Accept", "application/vnd.mob.v1+json");
   request.emulateJSON = true;
 
   // continue to next interceptor
-  next(function(response) {
-    if (response.status == 500) {
-      if (response.data.message == "Token has expired, but is still valid.") {
-        console.log("RETRY", response);
-      } else {
-        alert("Whoops, an unknown error occured.");
-      }
-    }
-  });
+   next(function(response) {
+     if (response.status == 500) {
+       if (response.data.message == "Token has expired, but is still valid.") {
+         console.log("RETRY", response);
+       } else {
+         console.log("Whoops, an unknown error occured.");
+       }
+     }
+   });
 });
 
 router.beforeEach((to, from, next) => {

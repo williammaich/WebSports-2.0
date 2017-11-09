@@ -31,7 +31,7 @@ class UserTest extends TestCase
         'endereco_id' => 1
     ]);
 
-    $this->assertDatabaseHas('Clientes',['nome' => 'admin Cliente' ]);
+    $this->assertDatabaseHas('clientes',['nome' => 'Admin Cliente' ]);
     }
 
 
@@ -49,7 +49,7 @@ class UserTest extends TestCase
             'endereco_id' => 1
         ]);
 
-        $this->assertDatabaseHas('Clientes',['nome' => '' ]);
+        $this->assertDatabaseHas('clientes',['nome' => '' ]);
     }
 
     public function test_create_cliente_endereco()
@@ -74,8 +74,8 @@ class UserTest extends TestCase
 
 
 
-        $this->assertDatabaseHas('Clientes',['nome' => 'cliente', 'endereco_id' => $endereco->id ]);
-        $this->assertDatabaseHas('Enderecos',['rua' => 'rua Narciso Silva']);
+        $this->assertDatabaseHas('clientes',['nome' => 'cliente', 'endereco_id' => $endereco->id ]);
+        $this->assertDatabaseHas('enderecos',['rua' => 'rua Narciso Silva']);
     }
 
 
@@ -101,8 +101,8 @@ class UserTest extends TestCase
 
 
 
-        $this->assertDatabaseMissing('Clientes',['nome' => 'cliente', 'endereco_id' => $endereco->id ]);
-        $this->assertDatabaseHas('Enderecos',['rua' => 'rua Narciso Silva']);
+        $this->assertDatabaseMissing('clientes',['nome' => 'cliente', 'endereco_id' => $endereco->id ]);
+        $this->assertDatabaseHas('enderecos',['rua' => 'rua Narciso Silva']);
     }
 
 
@@ -128,8 +128,8 @@ class UserTest extends TestCase
 
 
 
-        $this->assertDatabaseHas('Clientes',['nome' => 'cliente', 'endereco_id' => $endereco->id ]);
-        $this->assertDatabaseMissing('Enderecos',['rua' => 'rua Narciso Silva']);
+        $this->assertDatabaseHas('clientes',['nome' => 'cliente', 'endereco_id' => $endereco->id ]);
+        $this->assertDatabaseMissing('enderecos',['rua' => 'rua Narciso Silva']);
     }
 
 

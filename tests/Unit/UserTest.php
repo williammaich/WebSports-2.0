@@ -101,8 +101,8 @@ class UserTest extends TestCase
 
 
 
-        $this->assertDatabaseMissing('clientes',['nome' => 'cliente', 'endereco_id' => $endereco->id ]);
-        $this->assertDatabaseHas('enderecos',['rua' => 'rua Narciso Silva']);
+        $this->assertDatabaseMissing('clientes', ['nome' => 'cliente', 'endereco_id' => $endereco->id ]);
+        $this->assertDatabaseHas('enderecos', ['rua' => 'rua Narciso Silva']);
     }
 
 
@@ -128,8 +128,8 @@ class UserTest extends TestCase
 
 
 
-        $this->assertDatabaseHas('clientes',['nome' => 'cliente', 'endereco_id' => $endereco->id ]);
-        $this->assertDatabaseMissing('enderecos',['rua' => 'rua Narciso Silva']);
+        $this->assertDatabaseHas('clientes', ['nome' => 'cliente', 'endereco_id' => $endereco->id ]);
+        $this->assertDatabaseMissing('enderecos', ['rua' => 'rua Narciso Silva']);
     }
 
 

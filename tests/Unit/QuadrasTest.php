@@ -43,22 +43,6 @@ class QuadrasTest extends TestCase
         $this->assertDatabaseHas('quadras',['valorLocacao' => '0' ]);
     }
 
-
-    public function test_create_quadra_sem_tipo()
-    {
-
-
-
-        \App\Quadra::create([
-
-            'valorLocacao' => '0',
-
-            'tipoQuadra_id' => 1
-        ]);
-
-        $this->assertDatabaseMissing('quadras',['valorLocacao' => '0' ]);
-    }
-
     public function test_create_tipo_quadra()
     {
    \App\TipoQuadra::create([

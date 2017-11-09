@@ -77,7 +77,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // obtém os dados do form
+        $dadosFormulario = $request->all();
+
+        // posiciona no registo a ser alterado
+        $reg = User::find($id);
+
+        // realiza a alteração
+        $reg->update($dadosFormulario);
+
+        return $this->index();
     }
 
     /**
@@ -88,6 +97,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // posiciona no registo a ser deletado
+        $reg = User::find($id);
+
+        // Deleta
+        $reg->delete();
+
+        return $this->index();
     }
 }

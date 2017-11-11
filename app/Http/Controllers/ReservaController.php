@@ -75,12 +75,18 @@ class ReservaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
-
-        $reg = Reserva::find(id);
-
+        $reserva = $request->all();
+        $reg = Reserva::with('Cliente', 'Pagamento', 'Quadra')->find($id);
         $reg->update($reserva);
-
+        if(isset($reserva['cliente'])) {
+            $reg->cliente->update($reserva['cliente']);
+        }
+        if(isset($reserva['quadra'])) {
+            $reg->quadra->update($reserva['quadra']);
+        }
+        if(isset($reserva['pagamento'])) {
+            $reg->pagamento->update($reserva['pagamento']);
+        }
         return $this->index();
     }
 

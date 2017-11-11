@@ -12,53 +12,70 @@ const state = {
 }
 
 const mutations = {
-  'set-user'(state, users) {
+  'set-user' (state, users) {
     state.users = users;
   },
-  'set-reservas'(state, reservas) {
+  'set-reservas' (state, reservas) {
     state.reservas = reservas;
   }
 }
 
 const actions = {
-  'load-users'(context) {
+  'load-users' (context) {
     Vue.http.get('http://localhost:8000/api/users')
-    .then(response => {
-      let users = response.data.map(element => {
-        return {
-          'id' : element.id,
-          'nome do usuario': element.name,
-          'email': element.email,
-          'senha' : '*********'
-        }
+      .then(response => {
+        let users = response.data.map(element => {
+          return {
+            'id': element.id,
+            'nome do usuario': element.name,
+            'email': element.email,
+            'senha': '*********'
+          }
+        })
+        context.commit('set-user', users)
       })
-      context.commit('set-user', users)
-    })
   },
-  'set-user'(context, user) {
-    Vue.http.post(`http://localhost:8000/api/users/${user.id}`, {
-      'name' : user.nome,
-      'email' : user.email,
-      'password' : user.senha
-    }).then(response => {
-      console.log(response.status)
-    })
-  },
-  'load-reservas'(context) {
+  'load-reservas' (context) {
     Vue.http.get('http://localhost:8000/api/reservas')
       .then(response => {
         let reservas = response.data.map(element => {
           return {
-            'id' : element.id,
+            'id': element.id,
             'nome do cliente': element.cliente.nome,
-            'dia': new Date(element.dataReservada).toLocaleDateString(),
-            'horario': new Date(element.dataReservada).toLocaleTimeString(),
+            'dia': new Date(element.dataReservada).toLocaleDateString() + " " + new Date(element.dataReservada).toLocaleTimeString(),
             'reservas': '1'
           }
         })
         context.commit('set-reservas', reservas)
       })
+  },
+  'update-user' (context, user) {
+    let column = user.column
+    let data = {}
+    data[column] = user.value
+    Vue.http.put(`http://localhost:8000/api/users/${user.id}`, data)
+      .then(response => {
+        console.log(response.status)
+      })
+  },
+  'update-reserva' (context, reserva) {
+    let column = reserva.column
+    let data = {}
+    if (reserva.column == "nome") {
+      data = {
+        "cliente": {
+          "nome": reserva.value
+        }
+      }
+    } else {
+      data[column] = reserva.value
+    }
+    Vue.http.put(`http://localhost:8000/api/reservas/${reserva.id}`, data)
+      .then(response => {
+        console.log(response.status)
+      })
   }
+
 }
 
 export default new Vuex.Store({

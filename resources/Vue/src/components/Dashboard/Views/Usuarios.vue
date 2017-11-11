@@ -3,7 +3,7 @@
 
     <div class="col-md-12">
       <div class="card card-plain">
-        <paper-table type="hover" :title="table.title" :sub-title="table.subTitle" :data="users"
+        <paper-table @update="handleUpdate" type="hover" :title="table.title" :sub-title="table.subTitle" :data="users"
                      :columns="table.columns">
 
         </paper-table>
@@ -13,38 +13,49 @@
   </div>
 </template>
 <script>
-  import PaperTable from 'components/UIComponents/PaperTable.vue'
+import PaperTable from "components/UIComponents/PaperTable.vue";
 
-  const tableColumns = ['Id', 'Nome do Usuario', 'Email', 'Senha']
+const tableColumns = ["Id", "Nome do Usuario", "Email", "Senha"];
 
 export default {
- 
-   created() {
-      this.$store.dispatch('load-users')
-    },
-    components: {
-      PaperTable
-    },
-    computed: {
-      users() {
-        return this.$store.state.users
-      }
-    },
-    mounted() {
-      console.log(this.users);
-    },
-    data () {
-      return {
-        sort: 'Id',
-        table: {
-          title: 'Listagem de Usuários',
-          subTitle: 'Para qualquer alteração, clique duas vezes em cima do registro',
-          columns: [...tableColumns]
-        }
-      }
+  created() {
+    this.$store.dispatch("load-users");
+  },
+  components: {
+    PaperTable
+  },
+  computed: {
+    users() {
+      return this.$store.state.users;
     }
-  }
+  },
+  mounted() {
+    console.log(this.users);
+  },
+  methods: {
+    handleUpdate(payload) {
+      payload.data.column = payload.data.column.replace('Nome do Usuario', 'name');
+      payload.data.column = payload.data.column.replace('Id', 'id');
+      payload.data.column = payload.data.column.replace('Email', 'email');
+      payload.data.column = payload.data.column.replace('Senha', 'password');
+      console.log(payload.data);
+      this.$store.dispatch("update-user", payload.data)
 
+      this.$store.dispatch("load-users");
+    }
+  },
+  data() {
+    return {
+      sort: "Id",
+      table: {
+        title: "Listagem de Usuários",
+        subTitle:
+          "Para qualquer alteração, clique duas vezes em cima do registro",
+        columns: [...tableColumns]
+      }
+    };
+  }
+};
 </script>
 <style>
 

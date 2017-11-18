@@ -14,7 +14,7 @@ class QuadraController extends Controller
      */
     public function index()
     {
-        $quadra = Quadra::all()->toJson();
+        $quadra = Quadra::with('TipoQuadra')->get()->toJson();
         return $quadra;
     }
 
@@ -36,9 +36,9 @@ class QuadraController extends Controller
      */
     public function store(Request $request)
     {
-        $dadosFormulario = $request->all();
+        $quadra = Quadra::with('TipoQuadra')->get()->toJson();
 
-        Quadra::create($dadosFormulario);
+        Quadra::create($quadra);
 
         return $this->index();
     }
@@ -74,11 +74,11 @@ class QuadraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dadosFormulario = $request->all();
+        $quadra = Quadra::with('TipoQuadra')->get()->toJson();
 
         $reg = Quadra::find($id);
 
-        $reg->update($dadosFormulario);
+        $reg->update($quadra);
 
         return $this->index();
     }

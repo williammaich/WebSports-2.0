@@ -79,7 +79,7 @@ class PagamentoController extends Controller
 
         $reg = Pagamento::find($id);
 
-        $reg->update($pagemento);
+        $reg->update($pagamento);
 
         return $this->index();
     }

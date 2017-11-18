@@ -29,6 +29,8 @@ Route::group(['middleware' => ['cors', 'auth:api']], function () {
     Route::resource('quadras', 'QuadraController');
 
     Route::resource('pagamentos', 'PagamentoController');
+
+    Route::resource('enderecos', 'EnderecoController');
 });
 
 

@@ -20,6 +20,7 @@ Route::group(['middleware' => ['cors', 'auth:api']], function () {
 
 
     Route::resource('users', 'UserController');
+    Route::resource('reservas', 'ReservaController');
 
     Route::resource('reservas', 'ReservaController');
 

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Reserva;
+use App\Pagamento;
 use Illuminate\Http\Request;
 
-class ReservaController extends Controller
+class PagamentoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get()->toJson();
+        $pagamento = Pagamento::all()->toJson();
 
-        return $reserva;
+        return $pagamento;
     }
 
     /**
@@ -37,9 +37,9 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
+        $pagamento = $request->all();
 
-        Reserva::create($reserva);
+        Pagamento::create($pagamento);
 
         return $this->index();
     }
@@ -75,11 +75,11 @@ class ReservaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
+        $pagamento = $request->all();
 
-        $reg = Reserva::find($id);
+        $reg = Pagamento::find($id);
 
-        $reg->update($reserva);
+        $reg->update($pagamento);
 
         return $this->index();
     }
@@ -92,7 +92,7 @@ class ReservaController extends Controller
      */
     public function destroy($id)
     {
-        $reg = Reserva::find($id);
+        $reg = Pagamento::find($id);
 
         $reg->delete();
 

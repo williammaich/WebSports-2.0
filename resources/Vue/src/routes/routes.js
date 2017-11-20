@@ -21,6 +21,7 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource)
 
 const routes = [
+  {path: '/', redirect: '/login'},
   {
     path: '/login',
     component: Login,

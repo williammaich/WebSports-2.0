@@ -12,9 +12,8 @@
           <th v-for="column in columns" @click="setSort(column)" :key="column.id">{{column}}</th>
         </thead>
         <tbody>
-          <tr v-for="item in filtered" :key="item.id">
-            <td v-for="column in columns" v-if="hasValue(item, column)" :key="column.id"><input type="text" v-show="true" readonly="true" @keydown.enter="addReadonly($event)" @dblclick="edit($event)" :value="itemValue(item,column)"></td>
-             
+          <tr v-for="item in filtered" :key="item.id" :id="item.id">
+            <td v-for="column in columns" v-if="hasValue(item, column)"  :key="column.id"><input type="text" v-show="true" readonly="true" @keydown.enter="addReadonly($event, column)" @dblclick="edit($event)" :value="itemValue(item,column)"></td>
           </tr>
         </tbody>
       </table>
@@ -56,7 +55,14 @@
       edit(e) {
        e.target.removeAttribute('readonly')
       },
-      addReadonly(e){
+      addReadonly(e, column){
+        console.log(column)
+        // e.path retorna um array com todos elementos do input até o o document
+        // console.dir(e.path[2].id) = tr.id
+        let data = {
+          id: e.path[2].id, value: e.target.value, column : column
+        }
+        this.$emit('update', {data})
         e.target.setAttribute('readonly', 'true')
       },
       sortBy: function (sortKey) {

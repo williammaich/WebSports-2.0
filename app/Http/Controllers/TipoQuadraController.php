@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Reserva;
+use App\TipoQuadra;
 use Illuminate\Http\Request;
 
-class ReservaController extends Controller
+class TipoQuadraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get()->toJson();
+        $tipoQuadra = TipoQuadra::all()->toJson();
 
-        return $reserva;
+        return $tipoQuadra;
     }
 
     /**
@@ -37,9 +37,9 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
+        $tipoQuadra = $request->all();
 
-        Reserva::create($reserva);
+        TipoQuadra::create($tipoQuadra);
 
         return $this->index();
     }
@@ -75,19 +75,12 @@ class ReservaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $reserva = $request->all();
-        $reg = Reserva::with('Cliente', 'Pagamento', 'Quadra')->find($id);
-      
-        $reg->update($reserva);
-        if(isset($reserva['cliente'])) {
-            $reg->cliente->update($reserva['cliente']);
-        }
-        if(isset($reserva['quadra'])) {
-            $reg->quadra->update($reserva['quadra']);
-        }
-        if(isset($reserva['pagamento'])) {
-            $reg->pagamento->update($reserva['pagamento']);
-        }
+        $tipoQuadra = $request->all();
+
+        $reg = TipoQuadra::find($id);
+
+        $reg->update($tipoQuadra);
+
         return $this->index();
     }
 
@@ -99,7 +92,7 @@ class ReservaController extends Controller
      */
     public function destroy($id)
     {
-        $reg = Reserva::find($id);
+        $reg = TipoQuadra::find($id);
 
         $reg->delete();
 

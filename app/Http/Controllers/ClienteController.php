@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Reserva;
+use App\Cliente;
 use Illuminate\Http\Request;
 
-class ReservaController extends Controller
+class ClienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get()->toJson();
+        $cliente = Cliente::with('Endereco')->get()->toJson();
 
-        return $reserva;
+        return $cliente;
     }
 
     /**
@@ -37,9 +37,9 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
+        $cliente = Cliente::with('Endereco')->get();
 
-        Reserva::create($reserva);
+        Cliente::create($cliente);
 
         return $this->index();
     }
@@ -75,19 +75,12 @@ class ReservaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $reserva = $request->all();
-        $reg = Reserva::with('Cliente', 'Pagamento', 'Quadra')->find($id);
-      
-        $reg->update($reserva);
-        if(isset($reserva['cliente'])) {
-            $reg->cliente->update($reserva['cliente']);
-        }
-        if(isset($reserva['quadra'])) {
-            $reg->quadra->update($reserva['quadra']);
-        }
-        if(isset($reserva['pagamento'])) {
-            $reg->pagamento->update($reserva['pagamento']);
-        }
+        $cliente = Cliente::with('Endereco')->get();
+
+        $reg = Cliente::find($id);
+
+        $reg->update($cliente);
+
         return $this->index();
     }
 
@@ -99,7 +92,7 @@ class ReservaController extends Controller
      */
     public function destroy($id)
     {
-        $reg = Reserva::find($id);
+        $reg = Cliente::find($id);
 
         $reg->delete();
 

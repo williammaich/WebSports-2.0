@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Reserva;
+use App\Endereco;
+use App\Pagamento;
 use Illuminate\Http\Request;
 
-class ReservaController extends Controller
+class EnderecoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,9 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get()->toJson();
+        $endereco = Endereco::all()->toJson();
 
-        return $reserva;
+        return $endereco;
     }
 
     /**
@@ -37,9 +38,9 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
+        $endereco = $request->all();
 
-        Reserva::create($reserva);
+        Endereco::create($endereco);
 
         return $this->index();
     }
@@ -75,19 +76,12 @@ class ReservaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $reserva = $request->all();
-        $reg = Reserva::with('Cliente', 'Pagamento', 'Quadra')->find($id);
-      
-        $reg->update($reserva);
-        if(isset($reserva['cliente'])) {
-            $reg->cliente->update($reserva['cliente']);
-        }
-        if(isset($reserva['quadra'])) {
-            $reg->quadra->update($reserva['quadra']);
-        }
-        if(isset($reserva['pagamento'])) {
-            $reg->pagamento->update($reserva['pagamento']);
-        }
+        $endereco = $request->all();
+
+        $reg = Endereco::find($id);
+
+        $reg->update($endereco);
+
         return $this->index();
     }
 
@@ -99,7 +93,7 @@ class ReservaController extends Controller
      */
     public function destroy($id)
     {
-        $reg = Reserva::find($id);
+        $reg = Endereco::find($id);
 
         $reg->delete();
 

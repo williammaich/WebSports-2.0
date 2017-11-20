@@ -18,9 +18,21 @@ Route::group(['middleware' => ['cors', 'auth:api']], function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+
     Route::resource('users', 'UserController');
     Route::resource('reservas', 'ReservaController');
 
+    Route::resource('reservas', 'ReservaController');
+
+    Route::resource('tipoQuadras', 'TipoQuadraController');
+
+    Route::resource('quadras', 'QuadraController');
+
+    Route::resource('pagamentos', 'PagamentoController');
+
+    Route::resource('enderecos', 'EnderecoController');
+
+    Route::resource('clientes', 'ClienteController');
 });
 
 

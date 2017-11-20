@@ -1,6 +1,7 @@
 <template>
   <div :class="{'nav-open': $sidebar.showSidebar}">
     <router-view></router-view>
+    <vue-progress-bar style="height: 5px !important"></vue-progress-bar>
     <!--This sidebar appears only for screens smaller than 992px-->
     <side-bar type="navbar" :sidebar-links="$sidebar.sidebarLinks">
       <ul class="nav navbar-nav">
@@ -32,7 +33,7 @@
 </template>
 
 <script>
-
+ 
   export default {
   }
 </script>

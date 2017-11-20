@@ -18,6 +18,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import "es6-promise/auto";
 import "./assets/sass/paper-dashboard.scss";
 import _ from "lodash";
+import {
+  VueMaskDirective
+} from "v-mask";
+import VueProgressBar from 'vue-progressbar'
+
 
 window._ = _;
 // plugin setup
@@ -28,6 +33,8 @@ Vue.use(Notifications);
 Vue.use(SideBar);
 Vue.use(VueResource);
 Vue.use(Vuex);
+Vue.directive('mask', VueMaskDirective)
+Vue.use(VueProgressBar)
 // configure router
 const router = new VueRouter({
   routes, // short for routes: routes
@@ -68,10 +75,10 @@ Vue.http.interceptors.push(function(request, next) {
 });
 
 router.beforeEach((to, from, next) => {
+
   Vue.http
     .get("http://localhost:8000/api/user")
     .then(response => {
-      //console.warn(response)
     })
     .catch(error => {
       console.warn(error);

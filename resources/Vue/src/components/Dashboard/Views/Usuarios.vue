@@ -3,7 +3,7 @@
 
     <div class="col-md-12">
       <div class="card card-plain">
-        <paper-table @update="handleUpdate" type="hover" :title="table.title" :sub-title="table.subTitle" :data="users"
+        <paper-table @create="handleCreate" @update="handleUpdate" type="hover" :title="table.title" :sub-title="table.subTitle" :data="users"
                      :columns="table.columns">
 
         </paper-table>
@@ -15,10 +15,11 @@
 <script>
 import PaperTable from "components/UIComponents/PaperTable.vue";
 
-const tableColumns = ["Id", "Nome do Usuario", "Email", "Senha"];
+const tableColumns = ["Nome do Usuario", "Email", "Senha"];
 
 export default {
   created() {
+    this.$Progress.start()
     this.$store.dispatch("load-users");
   },
   components: {
@@ -31,6 +32,7 @@ export default {
   },
   mounted() {
     console.log(this.users);
+
   },
   methods: {
     handleUpdate(payload) {
@@ -42,6 +44,9 @@ export default {
       this.$store.dispatch("update-user", payload.data)
 
       this.$store.dispatch("load-users");
+    },
+    handleCreate(payload) {
+      console.log("Create", payload)
     }
   },
   data() {

@@ -13,10 +13,11 @@
 </template>
 <script>
 import PaperTable from "components/UIComponents/PaperTable.vue";
-const tableColumns = ["Id", "Nome do Cliente", "Dia", "Reservas"];
+const tableColumns = ["Nome do Cliente", "Dia", "Reservas"];
 
 export default {
   created() {
+        this.$Progress.start()
     this.$store.dispatch("load-reservas");
   },
   components: {
@@ -45,6 +46,8 @@ export default {
   },
   mounted() {
     console.log(this.reservas);
+
+
   },
   data() {
     return {

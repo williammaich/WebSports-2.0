@@ -8,10 +8,14 @@ Vue.use(Vuex)
 
 const state = {
   users: [],
-  reservas: []
+  reservas: [],
+  clientes: []
 }
 
 const mutations = {
+  'set-clientes'(state, clientes) {
+    state.clientes = clientes
+  },
   'set-user' (state, users) {
     state.users = users;
   },
@@ -21,6 +25,23 @@ const mutations = {
 }
 
 const actions = {
+  'load-clientes' (context) {
+    Vue.http.get('http://localhost:8000/api/clientes')
+    .then(response => {
+      console.log(response.data)
+      let clientes = response.data.map(element => {
+        return {
+          'id' : element.id,
+          'nome do cliente': element.nome,
+          'email': element.email,
+          'endereço': `${element.endereco.rua}, ${element.endereco.numero}` && `${element.endereco.rua}, ${element.endereco.numero}, ${(element.endereco.complemento || '')}`,
+          'cpf' : element.cpf,
+          'saldo' : element.saldo.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})
+        }
+      })
+      context.commit('set-clientes', clientes)      
+    })
+  },
   'load-users' (context) {
     Vue.http.get('http://localhost:8000/api/users')
       .then(response => {
@@ -74,8 +95,11 @@ const actions = {
       .then(response => {
         console.log(response.status)
       })
+  },
+  'create-users'(context, users) {
+    console.log(users)
+    // Vue.http.post('http://localhost:8000/api/users')
   }
-
 }
 
 export default new Vuex.Store({

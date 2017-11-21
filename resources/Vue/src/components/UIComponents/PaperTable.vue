@@ -10,8 +10,14 @@
   <div class="content table-responsive table-full-width">
     <table class="table" :class="tableClass">
       <tr :class="classCreate">
-          <td v-for="column in columns" @keypress.enter="create($event)" :key="column.id"><input type="text" v-show="true" @dblclick="edit($event)" :placeholder="column"/></td>
-        </tr>
+        <td v-for="column in columns" @keypress.enter="createSubmit($event)" :key="column.id">
+          <input 
+            v-mask="column == 'CPF' ? ['###.###.###-##', '##.###.###/####-##'] : undefined || column == 'Dia' ? ['##/##/#### ##:##'] : undefined || column == 'Saldo' ? ['R$ ###,##'] : undefined   " 
+            :data-column="column" 
+            :type="column == 'Dia' ? 'datetime' :'text'" 
+            :placeholder="column" />
+          </td>
+      </tr>
     </table>
     <table class="table" :class="tableClass">
       <thead>
@@ -19,7 +25,15 @@
       </thead>
       <tbody>
         <tr v-for="item in filtered" :key="item.id" :id="item.id">
-          <td v-for="column in columns" v-if="hasValue(item, column)" :key="column.id"><input type="text" v-show="true" readonly="true" @keydown.enter="addReadonly($event, column)" @dblclick="edit($event)" :value="itemValue(item,column)"></td>
+          <td v-for="column in columns" v-if="hasValue(item, column)" :key="column.id">
+            <input 
+              :type="column == 'Dia' ? 'datetime' : 'text'" 
+              v-mask="column == 'CPF' ? ['###.###.###-##', '##.###.###/####-##'] : undefined || column == 'Dia' ? ['##/##/#### ##:##'] : undefined || column == 'Saldo' ? ['R$ ###,##'] : undefined   " 
+              readonly="true" 
+              @keydown.enter="addReadonly($event, column)" 
+              @dblclick="edit($event)" 
+              :value="itemValue(item,column)">
+            </td>
         </tr>
       </tbody>
     </table>
@@ -32,12 +46,17 @@ function delay(t) {
     setTimeout(resolve, t);
   });
 }
+import { mask } from "vue-the-mask";
+
 export default {
   data() {
     return {
       toggleCreate: false,
-      classCreate: 'table-create'
-    }
+      classCreate: "table-create",
+    };
+  },
+  directives: {
+    mask
   },
   props: {
     columns: Array,
@@ -90,9 +109,22 @@ export default {
       e.target.setAttribute("readonly", "true");
     },
     create(e) {
-      this.classCreate = this.toggleCreate ? 'table-create closed' : 'table-create opened'
-      this.toggleCreate = !this.toggleCreate
-      this.$emit("create", e)
+      this.classCreate = this.toggleCreate
+        ? "table-create closed"
+        : "table-create opened";
+      this.toggleCreate = !this.toggleCreate;
+      this.$emit("create", e);
+    },
+    createSubmit(e) {
+      this.classCreate = "table-create closed";
+      this.toggleCreate = false;
+      let children = e.target.offsetParent.closest("tr").childNodes;
+      let data = {};
+      children.forEach(function(element) {
+        data[element.firstChild.attributes["data-column"].value] =
+          element.firstChild.value;
+      });
+      this.$emit("createSubmit", data);
     },
     sortBy: function(sortKey) {
       this.reverse = this.sortKey === sortKey ? !this.reverse : false;
@@ -120,29 +152,40 @@ input {
   width: 95%;
   padding: 10px;
 }
+
 input::-webkit-input-placeholder {
   color: #bbb;
 }
+
+input::placeholder {
+  color: #bbb;
+}
+
 input:read-only {
   background: transparent;
   border: none;
   text-align: center;
 }
+
 .table-create {
   background: #f5f5f5;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  height: 100px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  height: 0;
   transform: 1s;
+  visibility: hidden;
 }
+
 .table-create input {
   background: #fff;
   border: none;
 }
+
 .table-create.opened {
-  animation: openCreate .3s forwards;
+  animation: openCreate 0.3s forwards;
 }
+
 .table-create.closed {
-  animation: openCreate .3s reverse forwards;
+  animation: closeCreate 0.3s forwards;
 }
 
 .ti-plus {
@@ -151,7 +194,8 @@ input:read-only {
   border-radius: 50%;
   padding: 10px;
   position: absolute;
-  right: 0; top: 15px;
+  right: 0;
+  top: 15px;
   cursor: pointer;
 }
 
@@ -165,6 +209,19 @@ input:read-only {
     height: 100px;
     opacity: 1;
     visibility: visible;
+  }
+}
+
+@keyframes closeCreate {
+  0% {
+    height: 100px;
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
   }
 }
 </style>

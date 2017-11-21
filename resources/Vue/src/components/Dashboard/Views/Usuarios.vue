@@ -1,16 +1,15 @@
 <template>
-  <div class="row">
+<div class="row">
 
-    <div class="col-md-12">
-      <div class="card card-plain">
-        <paper-table @create="handleCreate" @update="handleUpdate" type="hover" :title="table.title" :sub-title="table.subTitle" :data="users"
-                     :columns="table.columns">
+  <div class="col-md-12">
+    <div class="card card-plain">
+      <paper-table @createSubmit="handleCreate" @update="handleUpdate" type="hover" :title="table.title" :sub-title="table.subTitle" :data="users" :columns="table.columns">
 
-        </paper-table>
-      </div>
+      </paper-table>
     </div>
-
   </div>
+
+</div>
 </template>
 <script>
 import PaperTable from "components/UIComponents/PaperTable.vue";
@@ -19,7 +18,7 @@ const tableColumns = ["Nome do Usuario", "Email", "Senha"];
 
 export default {
   created() {
-    this.$Progress.start()
+    // this.$Progress.start()
     this.$store.dispatch("load-users");
   },
   components: {
@@ -46,7 +45,13 @@ export default {
       this.$store.dispatch("load-users");
     },
     handleCreate(payload) {
-      console.log("Create", payload)
+      let data = {
+        name: payload["Nome do Usuario"],
+        email: payload["Email"],
+        password: payload["Senha"]
+      }
+      this.$store.dispatch("create-users", data)
+      this.$store.dispatch("load-users");
     }
   },
   data() {
@@ -54,8 +59,7 @@ export default {
       sort: "Id",
       table: {
         title: "Listagem de Usuários",
-        subTitle:
-          "Para qualquer alteração, clique duas vezes em cima do registro",
+        subTitle: "Para qualquer alteração, clique duas vezes em cima do registro",
         columns: [...tableColumns]
       }
     };

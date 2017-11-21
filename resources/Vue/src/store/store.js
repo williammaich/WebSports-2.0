@@ -13,7 +13,7 @@ const state = {
 }
 
 const mutations = {
-  'set-clientes'(state, clientes) {
+  'set-clientes' (state, clientes) {
     state.clientes = clientes
   },
   'set-user' (state, users) {
@@ -27,20 +27,22 @@ const mutations = {
 const actions = {
   'load-clientes' (context) {
     Vue.http.get('http://localhost:8000/api/clientes')
-    .then(response => {
-      console.log(response.data)
-      let clientes = response.data.map(element => {
-        return {
-          'id' : element.id,
-          'nome do cliente': element.nome,
-          'email': element.email,
-          'endereço': `${element.endereco.rua}, ${element.endereco.numero}` && `${element.endereco.rua}, ${element.endereco.numero}, ${(element.endereco.complemento || '')}`,
-          'cpf' : element.cpf,
-          'saldo' : element.saldo.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})
-        }
+      .then(response => {
+        let clientes = response.data.map(element => {
+          return {
+            'id': element.id,
+            'nome do cliente': element.nome,
+            'email': element.email,
+            'endereço': `${element.endereco.rua}, ${element.endereco.numero}` && `${element.endereco.rua}, ${element.endereco.numero}, ${(element.endereco.complemento || '')}`,
+            'cpf': element.cpf,
+            'saldo': element.saldo.toLocaleString('pt-BR', {
+              style: 'currency',
+              currency: 'BRL'
+            })
+          }
+        })
+        context.commit('set-clientes', clientes)
       })
-      context.commit('set-clientes', clientes)      
-    })
   },
   'load-users' (context) {
     Vue.http.get('http://localhost:8000/api/users')
@@ -96,9 +98,34 @@ const actions = {
         console.log(response.status)
       })
   },
-  'create-users'(context, users) {
-    console.log(users)
-    // Vue.http.post('http://localhost:8000/api/users')
+  'update-clientes' (context, cliente) {
+    let column = cliente.column
+    let data = {}
+    console.log(data)
+
+    if (cliente.column == "Endereço") {
+      data = {
+        "endereco": {
+          rua: cliente.rua,
+          numero: cliente.numero,
+          complemento: cliente.complemento
+        }
+      }
+    } else {
+      data[column.toLowerCase()] = cliente.value
+    }
+    console.log(data)
+    Vue.http.put(`http://localhost:8000/api/clientes/${cliente.id}`, data)
+      .then(response => {
+        console.log(response.status)
+      })
+
+  },
+  'create-users' (context, users) {
+    Vue.http.post('http://localhost:8000/api/users', users)
+      .then(response => {
+        console.log(response.status)
+      })
   }
 }
 

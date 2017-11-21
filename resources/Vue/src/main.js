@@ -48,7 +48,6 @@ Object.defineProperty(Vue.prototype, "$Chartist", {
     return this.$root.Chartist;
   }
 });
-
 Vue.http.interceptors.push(function(request, next) {
   let token = localStorage["token"];
   if (!token) {
@@ -63,15 +62,16 @@ Vue.http.interceptors.push(function(request, next) {
   request.emulateJSON = true;
 
   // continue to next interceptor
-   next(function(response) {
-     if (response.status == 500) {
-       if (response.data.message == "Token has expired, but is still valid.") {
-         console.log("RETRY", response);
-       } else {
-         console.log("Whoops, an unknown error occured.");
-       }
-     }
-   });
+  next(function(response) {
+    
+    if (response.status == 500) {
+      if (response.data.message == "Token has expired, but is still valid.") {
+        console.log("RETRY", response);
+      } else {
+        console.log("Whoops, an unknown error occured.");
+      }
+    }
+  });
 });
 
 router.beforeEach((to, from, next) => {

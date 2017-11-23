@@ -4,6 +4,11 @@ const SidebarStore = {
   showSidebar: false,
   sidebarLinks: [
     {
+      name: 'Calendário',
+      icon: 'ti-calendar',
+      path: '/admin/calendar'
+    },
+    {
       name: 'Dashboard',
       icon: 'ti-panel',
       path: '/admin/dashboard'

@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <!--Stats cards-->
+    Stats cards
     <div class="row">
       <div class="col-lg-3 col-sm-6" v-for="stats in statsCards">
         <stats-card>

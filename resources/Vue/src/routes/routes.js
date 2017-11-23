@@ -12,7 +12,7 @@ import Icons from 'src/components/Dashboard/Views/Icons.vue'
 import Typography from 'src/components/Dashboard/Views/Typography.vue'
 import Reservas from 'src/components/Dashboard/Views/Reservas.vue'
 import Usuarios from 'src/components/Dashboard/Views/Usuarios.vue'
-
+import Calendar from 'src/components/Dashboard/Views/Calendar.vue'
 
 import Vue from 'vue'
 import VueResource from 'vue-resource'
@@ -30,6 +30,11 @@ const routes = [
     component: DashboardLayout,
     redirect: '/admin/dashboard',
     children: [
+      {
+        path: 'calendar',
+        name: 'Calendário',
+        component: Calendar
+      },
       {
         path: 'dashboard',
         name: 'dashboard',
@@ -62,7 +67,7 @@ const routes = [
       },
       {
         path: 'usuarios',
-        name: 'usuarios',
+        name: 'usuários',
         component: Usuarios
       }
 

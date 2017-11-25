@@ -319,10 +319,12 @@ export default {
           cursor: pointer;
           flex: 1;
           min-height: 100px;
+          max-height: 100px;
           overflow: hidden;
           text-overflow: ellipsis;
           display: flex;
-          justify-content: flex-end;
+          align-items: flex-end;
+          flex-direction: column;
           &:hover .day-number {
             background-color: rgba(200, 200, 200, 0.1);
           }

@@ -1,8 +1,8 @@
 <template>
   <login
     api-url="http://localhost:8000"
-    clientId="3"
-    secret="1OjkR967vRSMNcFvaHuFNUOf3rAHUfz6OT6LxLrK"
+    clientId="2"
+    secret="KCfdWxWzrQfOQuz9tUd9hHyrf5JGVTtGuKPTvaQr"
     @success="handleLogin"
     @failed="handleErrors">
     </login>

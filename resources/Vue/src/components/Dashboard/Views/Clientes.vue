@@ -3,7 +3,7 @@
 
   <div class="col-md-12">
     <div class="card card-plain">
-      <paper-table @update="handleUpdate" type="hover" :title="table.title" :sub-title="table.subTitle" :data="clientes" :columns="table.columns">
+      <paper-table @update="handleUpdate"  type="hover" :title="table.title" :sub-title="table.subTitle" :data="clientes" :columns="table.columns">
 
       </paper-table>
     </div>
@@ -13,7 +13,8 @@
 </template>
 <script>
 import PaperTable from "components/UIComponents/PaperTable.vue";
-const tableColumns = ["Nome do Cliente", "Endereço", "CPF", "Saldo"];
+const tableColumns = [{name: "Nome do Cliente"}, {name:"Endereço"},
+ {name:"CPF", mask: ['###.###.###-##', '##.###.###/####-##']}, {name:"Saldo", mask: ['R$ ###,##']}];
 
 export default {
   created() {

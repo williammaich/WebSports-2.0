@@ -1,9 +1,10 @@
 <template>
-    <div>
-    
-        <vue-calendar :events="reservas" locale="en"></vue-calendar>
-    
-    </div>
+<div>
+
+  <vue-calendar :events="reservas" locale="en" @eventClick="handleEvent($event)">
+  </vue-calendar>
+
+</div>
 </template>
 
 <script>
@@ -22,14 +23,19 @@ export default {
         let timeArray = element['dia'].split('/')
         let time = `${timeArray[2].substring(0,4)}-${timeArray[1]}-${timeArray[0]}`
         let hour = `${element['dia'].substring(11,16)}`
+        let end = new Date();
+        end.setHours(hour.substring(0, 2))
+        end.setMinutes(hour.substring(3, 5))
+        end.setTime(end.getTime() + element['reservas'] * 60 * 60 * 1000)
 
-        event.push({    
+
+
+        event.push({
           title: `${hour} ${element["nome do cliente"]}`,
           start: `${time} ${hour}`,
-          end: `${time} ${hour}`
+          end: `${time} ${end.toLocaleTimeString()}`
         });
-        console.log(event);
-        
+
       });
 
       return event;
@@ -38,6 +44,11 @@ export default {
 
   components: {
     VueCalendar
+  },
+  methods: {
+    handleEvent(e) {
+      console.log(e)
+    }
   }
 };
 </script>

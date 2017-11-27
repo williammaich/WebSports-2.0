@@ -14,7 +14,10 @@
 <script>
 import PaperTable from "components/UIComponents/PaperTable.vue";
 
-const tableColumns = ["Nome do Usuario", "Email", "Senha"];
+const tableColumns = [
+  {name:"Nome do Usuario"}, 
+  {name:"Email"}, 
+  {name:"Senha"}];
 
 export default {
   created() {

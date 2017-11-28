@@ -76,9 +76,9 @@ class ReservaController extends Controller
     public function update(Request $request, $id)
     {
         $reserva = $request->all();
+
         $reg = Reserva::with('Cliente', 'Pagamento', 'Quadra')->find($id);
-      
-        $reg->update($reserva);
+
         if(isset($reserva['cliente'])) {
             $reg->cliente->update($reserva['cliente']);
         }
@@ -88,6 +88,9 @@ class ReservaController extends Controller
         if(isset($reserva['pagamento'])) {
             $reg->pagamento->update($reserva['pagamento']);
         }
+
+        $reg->update($reserva);
+
         return $this->index();
     }
 

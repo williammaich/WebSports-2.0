@@ -75,9 +75,13 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $cliente = Cliente::with('Endereco')->get();
+        $cliente = $request->all();
 
-        $reg = Cliente::find($id);
+        $reg = Cliente::with('Endereco')->find($id);
+
+        if(isset($cliente['endereco'])){
+        $reg->endereco->update($cliente['endereco']);
+        }
 
         $reg->update($cliente);
 

@@ -13,13 +13,16 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\Cliente::class, function (Faker $faker) {
     static $password;
-
+    $faker->addProvider(new \Faker\Provider\pt_BR\Person($faker));
     return [
-        'name' => $faker->name,
+        'nome' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'password' => \Hash::make('secret'),
-        'remember_token' => '',
+        'cpf' => $faker->cpf(false),
+        'saldo' => $faker->numberBetween(0, 1000),
+        'endereco_id' =>  $faker->numberBetween(1, 30),
+        'created_at' => date('Y-m-d h:i:s'),
+        'updated_at' => date('Y-m-d h:i:s')
     ];
 });

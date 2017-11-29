@@ -13,13 +13,16 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\Endereco::class, function (Faker $faker) {
     static $password;
-
+    // $faker->addProvider(new \Faker\Provider\en_US\Address);
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => \Hash::make('secret'),
-        'remember_token' => '',
+        'rua' => $faker->streetName,
+        'numero' => $faker->buildingNumber,
+        'complemento' => $faker->secondaryAddress,
+        'cidade' => $faker->city,
+        'cep' => $faker->numberBetween(90000000, 99999999),
+        'created_at' => date('Y-m-d h:i:s'),
+        'updated_at' => date('Y-m-d h:i:s')
     ];
 });

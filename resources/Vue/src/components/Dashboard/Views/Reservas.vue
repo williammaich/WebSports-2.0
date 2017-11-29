@@ -3,7 +3,7 @@
 
   <div class="col-md-12">
     <div class="card card-plain">
-      <paper-table @update="handleUpdate" type="hover" :title="table.title" :sub-title="table.subTitle" :sort="sort" :data="reservas" :columns="table.columns">
+      <paper-table @update="handleUpdate" :subData="clientes" type="hover" :title="table.title" :sub-title="table.subTitle" :sort="sort" :data="reservas" :columns="table.columns">
 
       </paper-table>
     </div>
@@ -13,12 +13,16 @@
 </template>
 <script>
 import PaperTable from "components/UIComponents/PaperTable.vue"
-const tableColumns = ["Nome do Cliente", "Dia", "Reservas"]
+const tableColumns = [
+  {name: "Nome do Cliente", type:"select"},
+  {name: "Dia", type:"datetime", mask:"##/##/#### ##:##"}, 
+  {name: "Reservas", type:"number"}]
 
 export default {
   created() {
     // this.$Progress.start()
     this.$store.dispatch("load-reservas")
+    this.$store.dispatch("load-clientes");
   },
   components: {
     PaperTable
@@ -26,7 +30,9 @@ export default {
   computed: {
     reservas() {
       return this.$store.state.reservas
-
+    },
+    clientes() {
+      return this.$store.state.clientes;
     }
   },
   methods: {

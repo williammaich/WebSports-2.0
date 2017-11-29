@@ -96,7 +96,6 @@ export default {
   },
   watch: {
     weekNames(val) {
-      console.log("watch weekNames", val);
     }
   },
   computed: {
@@ -181,7 +180,6 @@ export default {
         let dt = new Date(day.start);
         let st = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
         let ed = day.end ? new Date(day.end) : st;
-        // console.log('slotEvt', st, ed, date)
         return date >= st && date <= ed;
       });
 
@@ -319,16 +317,18 @@ export default {
           cursor: pointer;
           flex: 1;
           min-height: 100px;
+          max-height: 100px;
           overflow: hidden;
           text-overflow: ellipsis;
           display: flex;
-          justify-content: flex-end;
+          align-items: flex-end;
+          flex-direction: column;
           &:hover .day-number {
             background-color: rgba(200, 200, 200, 0.1);
           }
           .day-number {
             font-size: 20px;
-            margin: 7.5px;
+             margin: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -336,8 +336,8 @@ export default {
             text-align: center;
             // background-color: rgba(200, 200, 200, 0.1);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             display: inline-flex;
           }
           &.not-cur-month {
@@ -345,7 +345,13 @@ export default {
               color: rgba(0, 0, 0, 0.24);
             }
           }
+          position: relative;
           .event-box {
+            margin: 0 auto;
+            position: absolute;
+            top: 10px;
+            transform: scale(.9);
+            left: 0;
             .event-item {
               cursor: pointer;
               font-size: 12px;
@@ -386,13 +392,18 @@ export default {
     }
     .more-events {
       position: absolute;
-      width: 150px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40vw;
+      height: 50vh;
+      background: #fff;
       z-index: 2;
       border: 1px solid #eee;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
       .more-header {
         background-color: #eee;
-        padding: 5px;
+        padding: 15px 5px;
         display: flex;
         align-items: center;
         font-size: 14px;
@@ -400,9 +411,10 @@ export default {
           flex: 1;
         }
         .close {
-          margin-right: 2px;
+          margin-right: 5px;
           cursor: pointer;
-          font-size: 16px;
+          margin-top: -7px;
+          font-size: 26px;
         }
       }
       .more-body {

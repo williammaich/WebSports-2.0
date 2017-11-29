@@ -11,29 +11,25 @@
     <table class="table" :class="tableClass">
       <tr :class="classCreate">
         <td v-for="column in columns" @keypress.enter="createSubmit($event)" :key="column.id">
-          <input 
-            v-mask="column == 'CPF' ? ['###.###.###-##', '##.###.###/####-##'] : undefined || column == 'Dia' ? ['##/##/#### ##:##'] : undefined || column == 'Saldo' ? ['R$ ###,##'] : undefined   " 
-            :data-column="column" 
-            :type="column == 'Dia' ? 'datetime' :'text'" 
-            :placeholder="column" />
-          </td>
+          <select :data-column="column.name" v-if="column.type == 'select'" :placeholder="column.name">
+            <option value="nothing" selected disabled>Cliente</option>
+            <option v-for="data in subData" :key="data.id">{{data['nome do cliente']}}</option>
+            </select>
+          <input v-mask="column.mask" :data-column="column.name" :type="column.type" v-else-if="column.mask" :placeholder="column.name" />
+          <input :data-column="column.name" :type="column.type" v-else :placeholder="column.name" />
+        </td>
       </tr>
     </table>
     <table class="table" :class="tableClass">
       <thead>
-        <th v-for="column in columns" @click="setSort(column)" :key="column.id">{{column}}</th>
+        <th v-for="column in columns" @click="setSort(column)" :key="column.id">{{column.name}}</th>
       </thead>
       <tbody>
         <tr v-for="item in filtered" :key="item.id" :id="item.id">
-          <td v-for="column in columns" v-if="hasValue(item, column)" :key="column.id">
-            <input 
-              :type="column == 'Dia' ? 'datetime' : 'text'" 
-              v-mask="column == 'CPF' ? ['###.###.###-##', '##.###.###/####-##'] : undefined || column == 'Dia' ? ['##/##/#### ##:##'] : undefined || column == 'Saldo' ? ['R$ ###,##'] : undefined   " 
-              readonly="true" 
-              @keydown.enter="addReadonly($event, column)" 
-              @dblclick="edit($event)" 
-              :value="itemValue(item,column)">
-            </td>
+          <td v-for="column in columns" v-if="hasValue(item, column.name)" :key="column.id">
+            <input :type="column.type" v-if="column.mask" v-mask="column.mask" readonly="true" @keydown.enter="addReadonly($event, column.name)" @dblclick="edit($event)" :value="itemValue(item, column.name)">
+            <input :type="column.type" v-else readonly="true" @keydown.enter="addReadonly($event, column.name)" @dblclick="edit($event)" :value="itemValue(item, column.name)">
+          </td>
         </tr>
       </tbody>
     </table>
@@ -52,7 +48,7 @@ export default {
   data() {
     return {
       toggleCreate: false,
-      classCreate: "table-create",
+      classCreate: "table-create"
     };
   },
   directives: {
@@ -61,6 +57,7 @@ export default {
   props: {
     columns: Array,
     data: Array,
+    subData: Array,
     sort: {
       type: String,
       default: "id"
@@ -143,20 +140,23 @@ export default {
   }
 };
 </script>
-<style>
+<style lang="scss">
 th {
   text-align: center;
 }
 
+select,
 input {
   width: 95%;
   padding: 10px;
 }
 
+select,
 input::-webkit-input-placeholder {
   color: #bbb;
 }
 
+select,
 input::placeholder {
   color: #bbb;
 }
@@ -165,6 +165,14 @@ input:read-only {
   background: transparent;
   border: none;
   text-align: center;
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
 }
 
 .table-create {

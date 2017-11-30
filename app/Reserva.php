@@ -6,20 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reserva extends Model
 {
-    protected $fillable = array('dataReservada', 'quadra_id', 'pagamento_id', 'cliente_id');
+    protected $fillable = array('dataReservada', 'quantidade', 'quadra_id', 'pagamento_id', 'cliente_id');
 
-    public function cliente(){
+    public function cliente()
+    {
         return $this->belongsTo('App\Cliente');
     }
 
-    public function pagamento(){
+    public function pagamento()
+    {
         return $this->belongsTo('App\Pagamento');
     }
 
-    public function quadra(){
+    public function quadra()
+    {
         return $this->belongsTo('App\Quadra');
     }
-
 
 
 }

@@ -27,6 +27,8 @@ class CreateQuadrasTable extends Migration
      */
     public function down()
     {
+      Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('quadras');
+      Schema::enableForeignKeyConstraints();
     }
 }

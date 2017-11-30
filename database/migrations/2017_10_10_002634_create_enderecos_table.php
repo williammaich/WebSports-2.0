@@ -31,6 +31,8 @@ class CreateEnderecosTable extends Migration
      */
     public function down()
     {
+      Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('enderecos');
+      Schema::enableForeignKeyConstraints();
     }
 }

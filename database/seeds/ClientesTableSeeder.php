@@ -22,7 +22,7 @@ class ClientesTableSeeder extends Seeder
         // ]);
 
         factory(\App\Cliente::class,30)->create();
-        
+
 
     }
 }

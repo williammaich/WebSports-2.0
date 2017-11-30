@@ -79,35 +79,6 @@ export default {
           let header = this.getHeaders(authUser.token)
           this.$emit('success', {authUser, header})
         })
-
-//      const authUser = {}
-//
-//      axios.post(this.loginUrl, postData)
-//        .then(response => {
-//          authUser.access_token = response.data.access_token
-//          authUser.refresh_token = response.data.refresh_token
-//          localStorage.setItem('token', authUser.access_token)
-//          const headers = this.getHeaders(authUser.access_token)
-//
-//          axios.get(this.userUrl, {
-//            headers
-//          })
-//            .then(response => {
-//              authUser.email = response.data.email
-//              authUser.name = response.data.name
-//              authUser.id = response.data.id
-//              this.$emit('success', {
-//                authUser,
-//                headers
-//              })
-//            })
-//            .catch(error => {
-//              this.$emit('failed', error)
-//            })
-//        })
-//        .catch(error => {
-//          this.$emit('failed', error)
-//        })
     }
   }
 }

@@ -31,6 +31,7 @@ export default {
 
 
         event.push({
+          id: element.id,
           title: `${hour} ${element["nome do cliente"]}`,
           start: `${time} ${hour}`,
           end: `${time} ${end.toLocaleTimeString()}`

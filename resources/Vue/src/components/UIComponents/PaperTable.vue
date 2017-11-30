@@ -23,12 +23,17 @@
     <table class="table" :class="tableClass">
       <thead>
         <th v-for="column in columns" @click="setSort(column)" :key="column.id">{{column.name}}</th>
+        <th> Ações </th>
       </thead>
       <tbody>
         <tr v-for="item in filtered" :key="item.id" :id="item.id">
           <td v-for="column in columns" v-if="hasValue(item, column.name)" :key="column.id">
             <input :type="column.type" v-if="column.mask" v-mask="column.mask" readonly="true" @keydown.enter="addReadonly($event, column.name)" @dblclick="edit($event)" :value="itemValue(item, column.name)">
             <input :type="column.type" v-else readonly="true" @keydown.enter="addReadonly($event, column.name)" @dblclick="edit($event)" :value="itemValue(item, column.name)">
+          </td>
+          <td>
+            <span @click="view" class="ti-info view"></span>
+            <span @click="remove" class="ti-close remove"></span>
           </td>
         </tr>
       </tbody>
@@ -42,7 +47,9 @@ function delay(t) {
     setTimeout(resolve, t);
   });
 }
-import { mask } from "vue-the-mask";
+import {
+  mask
+} from "vue-the-mask";
 
 export default {
   data() {
@@ -106,11 +113,17 @@ export default {
       e.target.setAttribute("readonly", "true");
     },
     create(e) {
-      this.classCreate = this.toggleCreate
-        ? "table-create closed"
-        : "table-create opened";
+      this.classCreate = this.toggleCreate ?
+        "table-create closed" :
+        "table-create opened";
       this.toggleCreate = !this.toggleCreate;
       this.$emit("create", e);
+    },
+    view(e) {
+
+    },
+    remove(e) {
+
     },
     createSubmit(e) {
       this.classCreate = "table-create closed";
@@ -123,6 +136,7 @@ export default {
       });
       this.$emit("createSubmit", data);
     },
+
     sortBy: function(sortKey) {
       this.reverse = this.sortKey === sortKey ? !this.reverse : false;
 
@@ -142,94 +156,94 @@ export default {
 </script>
 <style lang="scss">
 th {
-  text-align: center;
+    text-align: center;
 }
 
-select,
-input {
-  width: 95%;
-  padding: 10px;
+input,
+select {
+    width: 95%;
+    padding: 10px;
 }
 
-select,
-input::-webkit-input-placeholder {
-  color: #bbb;
+input::-webkit-input-placeholder,
+select {
+    color: #bbb;
 }
 
-select,
-input::placeholder {
-  color: #bbb;
+input::placeholder,
+select {
+    color: #bbb;
 }
 
 input:read-only {
-  background: transparent;
-  border: none;
-  text-align: center;
-  &[type="number"] {
-    -moz-appearance: textfield;
-  }
+    background: transparent;
+    border: none;
+    text-align: center;
+    &[type="number"] {
+        -moz-appearance: textfield;
+    }
 
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
 }
 
 .table-create {
-  background: #f5f5f5;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  height: 0;
-  transform: 1s;
-  visibility: hidden;
+    background: #f5f5f5;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    height: 0;
+    transform: 1s;
+    visibility: hidden;
 }
 
 .table-create input {
-  background: #fff;
-  border: none;
+    background: #fff;
+    border: none;
 }
 
 .table-create.opened {
-  animation: openCreate 0.3s forwards;
+    animation: openCreate 0.3s forwards;
 }
 
 .table-create.closed {
-  animation: closeCreate 0.3s forwards;
+    animation: closeCreate 0.3s forwards;
 }
 
 .ti-plus {
-  border: 1px solid #000;
-  font-size: 25px;
-  border-radius: 50%;
-  padding: 10px;
-  position: absolute;
-  right: 0;
-  top: 15px;
-  cursor: pointer;
+    border: 1px solid #000;
+    font-size: 25px;
+    border-radius: 50%;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    cursor: pointer;
 }
 
 @keyframes openCreate {
-  0% {
-    height: 0;
-    opacity: 0;
-    visibility: hidden;
-  }
-  100% {
-    height: 100px;
-    opacity: 1;
-    visibility: visible;
-  }
+    0% {
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        height: 100px;
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 @keyframes closeCreate {
-  0% {
-    height: 100px;
-    opacity: 1;
-    visibility: visible;
-  }
-  100% {
-    height: 0;
-    opacity: 0;
-    visibility: hidden;
-  }
+    0% {
+        height: 100px;
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
 }
 </style>

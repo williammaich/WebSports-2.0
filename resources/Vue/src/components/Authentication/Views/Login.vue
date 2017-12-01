@@ -2,7 +2,7 @@
   <login
     api-url="http://localhost:8000"
     clientId="2"
-    secret="Vo3BXuqTaz4gPzDBhpBVs0KhdAlRmPSDYMeFUW4Z"
+    secret="n5JYhuh7qmmkmU2ofxIY618zuJ35qzQj6ezshpUm"
     @success="handleLogin"
     @failed="handleErrors">
     </login>

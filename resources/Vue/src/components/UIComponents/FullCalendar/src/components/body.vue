@@ -341,6 +341,7 @@ export default {
                             cursor: pointer;
                             font-size: 12px;
                             background-color: #c7e6fd;
+                            font-weight: 400;
                             margin-bottom: 2px;
                             color: rgba(0, 0, 0, 0.87);
                             padding: 0 0 0 4px;

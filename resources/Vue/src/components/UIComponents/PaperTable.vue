@@ -210,7 +210,7 @@ input:read-only {
 
 .table-create.closed {
   display: table-row;
-  
+
     animation: closeCreate 0.3s forwards;
 }
 
@@ -223,6 +223,13 @@ input:read-only {
     right: 0;
     top: 15px;
     cursor: pointer;
+}
+header, th {
+  font-family: Montserrat;
+  font-weight: 700;
+}
+td {
+  input {font-weight: 400;}
 }
 
 @keyframes openCreate {

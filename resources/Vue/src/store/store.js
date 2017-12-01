@@ -80,6 +80,7 @@ const actions = {
     Vue.http.get(`http://localhost:8000/api/reservas/${id}`)
       .then(response => {
         let reserva = response.data
+        console.log('reserva load')
         context.commit('set-reserva', reserva)
       })
   },

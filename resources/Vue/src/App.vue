@@ -67,7 +67,7 @@ export default {
       // continue to next interceptor
       next(function(response) {
       this.$Progress.finish()
-        
+
         if (response.status == 500) {
           if (response.data.message == "Token has expired, but is still valid.") {
             console.log("RETRY", response);
@@ -84,6 +84,6 @@ export default {
 <style lang="scss">
 * {
   font-family: "Montserrat";
-  font-weight: 100;
+  font-weight: 400;
 }
 </style>

@@ -5,33 +5,36 @@
   </vue-calendar>
   <div class="reserva" v-show="viewReserva">
     <div class="reserva__header">
-      <span class="reserva__title">Edição de Reserva</span>
+      <div class="reserva--column">
+        <span class="reserva__title">Edição de Reserva</span>
+        <span class="reserva__subtitle">Dê dois cliques no campo para editar</span>
+      </div>
       <span class="ti-close reserva__close" @click.stop="viewReserva = false"></span>
     </div>
     <div class="reserva__body">
       <div class="reserva__input-group">
-        <label for="">NOME</label>        
-        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" :value="reserva.cliente.nome">
+        <label for="">NOME</label>
+        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" v-model="reserva.cliente.nome">
       </div>
       <div class="reserva__input-group">
         <label for="">E-MAIL</label>
-        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" :value="reserva.cliente.email">
+        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" v-model="reserva.cliente.email">
       </div>
       <div class="reserva__input-group">
         <label for="">CPF</label>
-        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" :value="reserva.cliente.cpf">
+        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" v-mask="['###.###.###-##']" v-model="reserva.cliente.cpf">
       </div>
       <div class="reserva__input-group">
-        <label for="">SALDO</label>        
-        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" :value="reserva.cliente.saldo">
+        <label for="">SALDO</label>
+        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" v-mask="['R$ ###,00']" v-model="reserva.cliente.saldo">
       </div>
       <div class="reserva__input-group">
         <label for="">RESERVADO PARA</label>
-        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" :value="reserva.dataReservada">
+        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" v-model="reserva.dataReservada">
       </div>
       <div class="reserva__input-group">
         <label for="">CRIADO EM</label>
-        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" :value="reserva.created_at">
+        <input type="text" readonly @keydown.enter="addReadonly($event)" @dblclick="edit($event)" v-model="reserva.created_at">
       </div>
     </div>
   </div>
@@ -40,6 +43,7 @@
 
 <script>
 import VueCalendar from "../../UIComponents/FullCalendar/src";
+import {mask} from 'vue-the-mask'
 
 export default {
   created() {
@@ -48,6 +52,7 @@ export default {
   data() {
     return {
       viewReserva: false,
+      id: 0,
       reserva: {
         cliente: {
           cpf: "",
@@ -85,29 +90,41 @@ export default {
           end: `${time} ${end.toLocaleTimeString()}`
         });
       });
-
+      this.$Progress.finish()
       return event;
     }
   },
-
+  directives: {
+    mask
+  },
   components: {
     VueCalendar
   },
   methods: {
     async handleClick(e) {
+      this.id = e.id
+      this.$Progress.start()
       console.log(e);
       this.viewReserva = true;
       let reserva;
-      await this.$store.dispatch("load-reserva", e.id).then(res => {
-        reserva = this.$store.state.reserva;
+      await this.$http.get(`http://localhost:8000/api/reservas/${e.id}`).then(res => {
+        console.log(res.body)
+        reserva = res.body;
       });
       this.reserva = reserva;
+      this.$Progress.finish()
     },
     edit(e) {
       e.target.removeAttribute("readonly");
     },
-    addReadonly(e) {
+    async addReadonly(e) {
+      console.log(e)
+      this.reserva.cliente.cpf = this.reserva.cliente.cpf.replace(/[^a-zA-Z0-9 ]/g, "")
+      this.reserva.cliente.saldo = this.reserva.cliente.saldo.replace(/[^0-9 ]/g, "")
+      await this.$http.put(`http://localhost:8000/api/reservas/${this.id}`, this.reserva)
       e.target.setAttribute("readonly", true);
+      this.$store.dispatch("load-reservas");
+
     }
   }
 };
@@ -130,6 +147,12 @@ export default {
   background: rgba(255, 255, 255, 0.97);
   padding: 30px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  &--column {display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%
+  }
   &__header {
     width: 100%;
     display: flex;
@@ -152,6 +175,7 @@ export default {
     label {
       flex-basis: 20vw;
       text-align: right;
+      margin-right: 20px;
     }
     input {
       text-align: left;

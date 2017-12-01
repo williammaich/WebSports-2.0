@@ -82,5 +82,8 @@ export default {
 </script>
 
 <style lang="scss">
-
+* {
+  font-family: "Montserrat";
+  font-weight: 100;
+}
 </style>

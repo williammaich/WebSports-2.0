@@ -195,6 +195,7 @@ input:read-only {
     height: 0;
     transform: 1s;
     visibility: hidden;
+    display: none;
 }
 
 .table-create input {
@@ -203,10 +204,13 @@ input:read-only {
 }
 
 .table-create.opened {
-    animation: openCreate 0.3s forwards;
+  display: table-row;
+   animation: openCreate 0.3s forwards;
 }
 
 .table-create.closed {
+  display: table-row;
+  
     animation: closeCreate 0.3s forwards;
 }
 

@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 
 const state = {
+  reserva: {},
   users: [],
   reservas: [],
   clientes: []
@@ -21,6 +22,9 @@ const mutations = {
   },
   'set-reservas' (state, reservas) {
     state.reservas = reservas;
+  },
+  'set-reserva' (state, reserva) {
+    state.reserva = reserva;
   }
 }
 
@@ -70,6 +74,13 @@ const actions = {
           }
         })
         context.commit('set-reservas', reservas)
+      })
+  },
+  'load-reserva' (context, id) {
+    Vue.http.get(`http://localhost:8000/api/reservas/${id}`)
+      .then(response => {
+        let reserva = response.data
+        context.commit('set-reserva', reserva)
       })
   },
   'update-user' (context, user) {

@@ -22,7 +22,7 @@
     </table>
     <table class="table" :class="tableClass">
       <thead>
-        <th v-for="column in columns" @click="setSort(column)" :key="column.id">{{column.name}}</th>
+        <th v-for="column in columns" @click="setSort(column.name)" :key="column.id">{{column.name}}</th>
         <th> Ações </th>
       </thead>
       <tbody>
@@ -55,7 +55,8 @@ export default {
   data() {
     return {
       toggleCreate: false,
-      classCreate: "table-create"
+      classCreate: "table-create",
+      sortTable: 'id'
     };
   },
   directives: {
@@ -92,7 +93,7 @@ export default {
       return `table-${this.type}`;
     },
     filtered() {
-      return _.sortBy(this.data, this.sort);
+      return _.sortBy(this.data, this.sortTable);
     }
   },
   methods: {
@@ -149,7 +150,7 @@ export default {
       return item[column.toLowerCase()];
     },
     setSort(value) {
-      this.sort = value.toLowerCase();
+      this.sortTable = value.toLowerCase();
     }
   }
 };

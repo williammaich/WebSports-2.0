@@ -44,7 +44,7 @@
 <script>
 import VueCalendar from "../../UIComponents/FullCalendar/src";
 import {mask} from 'vue-the-mask'
-
+import DatePicker from 'vuejs-datepicker'
 export default {
   created() {
     this.$store.dispatch("load-reservas");

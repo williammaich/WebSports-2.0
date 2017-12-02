@@ -22,7 +22,7 @@
     </table>
     <table class="table" :class="tableClass">
       <thead>
-        <th v-for="column in columns" @click="setSort(column.name)" :key="column.id">{{column.name}}</th>
+        <th v-for="column in columns" @click="setSort(column.name)" :key="column.id">{{column.name}} <span :class="sortOrder ? 'ti-arrow-up' : 'ti-arrow-down'"></span> </th>
         <th> Ações </th>
       </thead>
       <tbody>
@@ -32,8 +32,8 @@
             <input :type="column.type" v-else readonly="true" @keydown.enter="addReadonly($event, column.name)" @dblclick="edit($event)" :value="itemValue(item, column.name)">
           </td>
           <td>
-            <span @click="view" class="ti-info view"></span>
-            <span @click="remove" class="ti-close remove"></span>
+            <span @click="view" :id="itemValue(item, 'id')" class="ti-info control view"></span>
+            <span @click="remove" :id="itemValue(item, 'id')" class="ti-close control remove"></span>
           </td>
         </tr>
       </tbody>
@@ -56,7 +56,8 @@ export default {
     return {
       toggleCreate: false,
       classCreate: "table-create",
-      sortTable: 'id'
+      sortTable: 'id',
+      sortOrder: true
     };
   },
   directives: {
@@ -93,7 +94,7 @@ export default {
       return `table-${this.type}`;
     },
     filtered() {
-      return _.sortBy(this.data, this.sortTable);
+      return _.orderBy(this.data, this.sortTable, this.sortOrder ? 'asc' : 'desc');
     }
   },
   methods: {
@@ -124,7 +125,7 @@ export default {
 
     },
     remove(e) {
-
+     this.$emit('delete', e)
     },
     createSubmit(e) {
       this.classCreate = "table-create closed";
@@ -137,12 +138,6 @@ export default {
       });
       this.$emit("createSubmit", data);
     },
-
-    sortBy: function(sortKey) {
-      this.reverse = this.sortKey === sortKey ? !this.reverse : false;
-
-      this.sortKey = sortKey;
-    },
     hasValue(item, column) {
       return item[column.toLowerCase()] !== "undefined";
     },
@@ -150,7 +145,8 @@ export default {
       return item[column.toLowerCase()];
     },
     setSort(value) {
-      this.sortTable = value.toLowerCase();
+      this.sortTable = value.toLowerCase()
+      this.sortOrder = !this.sortOrder
     }
   }
 };
@@ -159,7 +155,10 @@ export default {
 th {
     text-align: center;
 }
-
+.control {
+  cursor: pointer;
+  padding: 5px 10px;
+}
 input,
 select {
     width: 95%;

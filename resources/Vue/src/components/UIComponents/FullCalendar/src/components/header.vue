@@ -97,6 +97,7 @@ export default {
   text-align: center;
   color: #fff;
   font-size: 60px;
+  font-weight: 100;
   .month {
     display: inline-flex;
     padding: 20px 30px;

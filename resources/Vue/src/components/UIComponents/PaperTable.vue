@@ -22,13 +22,18 @@
     </table>
     <table class="table" :class="tableClass">
       <thead>
-        <th v-for="column in columns" @click="setSort(column)" :key="column.id">{{column.name}}</th>
+        <th v-for="column in columns" @click="setSort(column.name)" :key="column.id">{{column.name}} <span :class="sortOrder ? 'ti-arrow-up' : 'ti-arrow-down'"></span> </th>
+        <th> Ações </th>
       </thead>
       <tbody>
         <tr v-for="item in filtered" :key="item.id" :id="item.id">
           <td v-for="column in columns" v-if="hasValue(item, column.name)" :key="column.id">
             <input :type="column.type" v-if="column.mask" v-mask="column.mask" readonly="true" @keydown.enter="addReadonly($event, column.name)" @dblclick="edit($event)" :value="itemValue(item, column.name)">
             <input :type="column.type" v-else readonly="true" @keydown.enter="addReadonly($event, column.name)" @dblclick="edit($event)" :value="itemValue(item, column.name)">
+          </td>
+          <td>
+            <span @click="view" :id="itemValue(item, 'id')" class="ti-info control view"></span>
+            <span @click="remove" :id="itemValue(item, 'id')" class="ti-close control remove"></span>
           </td>
         </tr>
       </tbody>
@@ -42,13 +47,17 @@ function delay(t) {
     setTimeout(resolve, t);
   });
 }
-import { mask } from "vue-the-mask";
+import {
+  mask
+} from "vue-the-mask";
 
 export default {
   data() {
     return {
       toggleCreate: false,
-      classCreate: "table-create"
+      classCreate: "table-create",
+      sortTable: 'id',
+      sortOrder: true
     };
   },
   directives: {
@@ -85,7 +94,7 @@ export default {
       return `table-${this.type}`;
     },
     filtered() {
-      return _.sortBy(this.data, this.sort);
+      return _.orderBy(this.data, this.sortTable, this.sortOrder ? 'asc' : 'desc');
     }
   },
   methods: {
@@ -106,11 +115,17 @@ export default {
       e.target.setAttribute("readonly", "true");
     },
     create(e) {
-      this.classCreate = this.toggleCreate
-        ? "table-create closed"
-        : "table-create opened";
+      this.classCreate = this.toggleCreate ?
+        "table-create closed" :
+        "table-create opened";
       this.toggleCreate = !this.toggleCreate;
       this.$emit("create", e);
+    },
+    view(e) {
+
+    },
+    remove(e) {
+     this.$emit('delete', e)
     },
     createSubmit(e) {
       this.classCreate = "table-create closed";
@@ -123,11 +138,6 @@ export default {
       });
       this.$emit("createSubmit", data);
     },
-    sortBy: function(sortKey) {
-      this.reverse = this.sortKey === sortKey ? !this.reverse : false;
-
-      this.sortKey = sortKey;
-    },
     hasValue(item, column) {
       return item[column.toLowerCase()] !== "undefined";
     },
@@ -135,101 +145,116 @@ export default {
       return item[column.toLowerCase()];
     },
     setSort(value) {
-      this.sort = value.toLowerCase();
+      this.sortTable = value.toLowerCase()
+      this.sortOrder = !this.sortOrder
     }
   }
 };
 </script>
 <style lang="scss">
 th {
-  text-align: center;
+    text-align: center;
+}
+.control {
+  cursor: pointer;
+  padding: 5px 10px;
+}
+input,
+select {
+    width: 95%;
+    padding: 10px;
 }
 
-select,
-input {
-  width: 95%;
-  padding: 10px;
+input::-webkit-input-placeholder,
+select {
+    color: #bbb;
 }
 
-select,
-input::-webkit-input-placeholder {
-  color: #bbb;
-}
-
-select,
-input::placeholder {
-  color: #bbb;
+input::placeholder,
+select {
+    color: #bbb;
 }
 
 input:read-only {
-  background: transparent;
-  border: none;
-  text-align: center;
-  &[type="number"] {
-    -moz-appearance: textfield;
-  }
+    background: transparent;
+    border: none;
+    text-align: center;
+    &[type="number"] {
+        -moz-appearance: textfield;
+    }
 
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
 }
 
 .table-create {
-  background: #f5f5f5;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  height: 0;
-  transform: 1s;
-  visibility: hidden;
+    background: #f5f5f5;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    height: 0;
+    transform: 1s;
+    visibility: hidden;
+    display: none;
 }
 
 .table-create input {
-  background: #fff;
-  border: none;
+    background: #fff;
+    border: none;
 }
 
 .table-create.opened {
-  animation: openCreate 0.3s forwards;
+  display: table-row;
+   animation: openCreate 0.3s forwards;
 }
 
 .table-create.closed {
-  animation: closeCreate 0.3s forwards;
+  display: table-row;
+
+    animation: closeCreate 0.3s forwards;
 }
 
 .ti-plus {
-  border: 1px solid #000;
-  font-size: 25px;
-  border-radius: 50%;
-  padding: 10px;
-  position: absolute;
-  right: 0;
-  top: 15px;
-  cursor: pointer;
+    border: 1px solid #000;
+    font-size: 25px;
+    border-radius: 50%;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    cursor: pointer;
+}
+header, th {
+  font-family: Montserrat;
+  font-weight: 700;
+}
+td {
+  input {font-weight: 400;}
 }
 
 @keyframes openCreate {
-  0% {
-    height: 0;
-    opacity: 0;
-    visibility: hidden;
-  }
-  100% {
-    height: 100px;
-    opacity: 1;
-    visibility: visible;
-  }
+    0% {
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        height: 100px;
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 @keyframes closeCreate {
-  0% {
-    height: 100px;
-    opacity: 1;
-    visibility: visible;
-  }
-  100% {
-    height: 0;
-    opacity: 0;
-    visibility: hidden;
-  }
+    0% {
+        height: 100px;
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
 }
 </style>

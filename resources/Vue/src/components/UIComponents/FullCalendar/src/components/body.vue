@@ -36,14 +36,14 @@
     </div>
 
     <!-- full events when click show more -->
-    <div class="more-events" v-show="showMore" :style="{left: morePos.left + 'px', top: morePos.top + 'px'}">
+    <div class="more-events" v-show="showMore">
       <div class="more-header">
         <span class="title">{{moreTitle(selectDay.date)}}</span>
-        <span class="close" @click.stop="showMore = false">x</span>
+        <span class="ti-close close" @click.stop="showMore = false"></span>
       </div>
       <div class="more-body">
         <ul class="body-list">
-          <li v-for="event in selectDay.events" v-show="event.isShow" class="body-item" @click="eventClick(event,$event)">
+          <li v-for="event in selectDay.events" v-show="event.isShow" class="body-item" @click="eventClick(event, $event)">
             {{event.title}}
           </li>
         </ul>
@@ -95,8 +95,7 @@ export default {
     };
   },
   watch: {
-    weekNames(val) {
-    }
+    weekNames(val) {}
   },
   computed: {
     currentDates() {
@@ -114,12 +113,7 @@ export default {
     },
     moreTitle(date) {
       let dt = new Date(date);
-      return (
-        this.weekNames[dt.getDay()] +
-        ", " +
-        this.monthNames[dt.getMonth()] +
-        dt.getDate()
-      );
+      return `${this.weekNames[dt.getDay()]}, ${this.monthNames[dt.getMonth()]} ${dt.getDate()}`
     },
     classNames(cssClass) {
       if (!cssClass) return "";
@@ -183,25 +177,12 @@ export default {
         return date >= st && date <= ed;
       });
 
-      // sort by duration
-      thisDayEvents.sort((a, b) => {
-        if (!a.cellIndex) return 1;
-        if (!b.cellIndex) return -1;
-        return a.cellIndex - b.cellIndex;
-      });
 
+      thisDayEvents = _.sortBy(thisDayEvents, 'start')
       // mark cellIndex and place holder
       for (let i = 0; i < thisDayEvents.length; i++) {
         thisDayEvents[i].cellIndex = thisDayEvents[i].cellIndex || i + 1;
         thisDayEvents[i].isShow = true;
-        if (thisDayEvents[i].cellIndex == i + 1 || i > 2) continue;
-        thisDayEvents.splice(i, 0, {
-          title: "holder",
-          cellIndex: i + 1,
-          start: dateFunc.format(date, "yyyy-MM-dd"),
-          end: dateFunc.format(date, "yyyy-MM-dd"),
-          isShow: false
-        });
       }
 
       return thisDayEvents;
@@ -249,198 +230,200 @@ export default {
 
 <style lang="scss">
 .full-calendar-body {
-  background: #fff;
-  padding: 0;
-  .weeks {
-    display: flex;
-    border-top: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
-    border-left: 1px solid #e0e0e0;
-    .week {
-      flex: 1;
-      font-weight: 400;
-      text-align: center;
-      color: #999;
-      text-transform: uppercase;
-      border-right: 1px solid #e0e0e0;
-      padding: 10px 0;
-    }
-  }
-  .dates {
-    position: relative;
-    .week-row {
-      // width: 100%;
-      // position:absolute;
-      border-left: 1px solid #e0e0e0;
-      display: flex;
-      .day-cell {
-        flex: 1;
-        min-height: 100px;
-        padding: 4px;
-        border-right: 1px solid #e0e0e0;
+    background: #fff;
+    padding: 0;
+    .weeks {
+        display: flex;
+        border-top: 1px solid #e0e0e0;
         border-bottom: 1px solid #e0e0e0;
-        display: flex;
-        justify-content: flex-end;
-        width: 100%;
-        .day-number {
-          font-size: 20px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          // padding: 10px 10px;
-          text-align: center;
-          background-color: rgba(200, 200, 200, 0.1);
-          border-radius: 50%;
-          width: 50px;
-          height: 50px;
-          display: none;
-        }
-        &.today {
-          background-color: rgba(200, 200, 200, 0.1);
-        }
-        &.not-cur-month {
-          .day-number {
-            color: rgba(0, 0, 0, 0.24);
-          }
-        }
-      }
-    }
-    .dates-events {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      width: 100%;
-      .events-week {
-        display: flex;
-        .events-day {
-          cursor: pointer;
-          flex: 1;
-          min-height: 100px;
-          max-height: 100px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: flex;
-          align-items: flex-end;
-          flex-direction: column;
-          &:hover .day-number {
-            background-color: rgba(200, 200, 200, 0.1);
-          }
-          .day-number {
-            font-size: 20px;
-             margin: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            // padding: 10px 10px;
+        border-left: 1px solid #e0e0e0;
+        .week {
+            flex: 1;
+            font-weight: 400;
             text-align: center;
-            // background-color: rgba(200, 200, 200, 0.1);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: inline-flex;
-          }
-          &.not-cur-month {
-            .day-number {
-              color: rgba(0, 0, 0, 0.24);
+            color: #999;
+            text-transform: uppercase;
+            border-right: 1px solid #e0e0e0;
+            padding: 10px 0;
+        }
+    }
+    .dates {
+        position: relative;
+        .week-row {
+            // width: 100%;
+            // position:absolute;
+            border-left: 1px solid #e0e0e0;
+            display: flex;
+            .day-cell {
+                flex: 1;
+                min-height: 100px;
+                padding: 4px;
+                border-right: 1px solid #e0e0e0;
+                border-bottom: 1px solid #e0e0e0;
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                .day-number {
+                    font-size: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    // padding: 10px 10px;
+                    text-align: center;
+                    background-color: rgba(200, 200, 200, 0.1);
+                    border-radius: 50%;
+                    width: 50px;
+                    height: 50px;
+                    display: none;
+                }
+                &.today {
+                    background-color: rgba(200, 200, 200, 0.1);
+                }
+                &.not-cur-month {
+                    .day-number {
+                        color: rgba(0, 0, 0, 0.24);
+                    }
+                }
             }
-          }
-          position: relative;
-          .event-box {
-            margin: 0 auto;
+        }
+        .dates-events {
             position: absolute;
-            top: 10px;
-            transform: scale(.9);
+            top: 0;
             left: 0;
-            .event-item {
-              cursor: pointer;
-              font-size: 12px;
-              background-color: #c7e6fd;
-              margin-bottom: 2px;
-              color: rgba(0, 0, 0, 0.87);
-              padding: 0 0 0 4px;
-              height: 18px;
-              line-height: 18px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              &.is-start {
-                margin-left: 4px;
-                // border-top-left-radius:4px;
-                // border-bottom-left-radius:4px;
-              }
-              &.is-end {
-                margin-right: 4px;
-                // border-top-right-radius:4px;
-                // border-bottom-right-radius:4px;
-              }
-              &.is-opacity {
-                opacity: 0;
-              }
+            z-index: 1;
+            width: 100%;
+            .events-week {
+                display: flex;
+                .events-day {
+                    cursor: pointer;
+                    flex: 1;
+                    min-height: 100px;
+                    max-height: 100px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: flex;
+                    align-items: flex-end;
+                    flex-direction: column;
+                    &:hover .day-number {
+                        background-color: rgba(200, 200, 200, 0.1);
+                    }
+                    .day-number {
+                        font-size: 20px;
+                        margin: 5px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        // padding: 10px 10px;
+                        text-align: center;
+                        // background-color: rgba(200, 200, 200, 0.1);
+                        border-radius: 50%;
+                        width: 40px;
+                        height: 40px;
+                        display: inline-flex;
+                    }
+                    &.not-cur-month {
+                        .day-number {
+                            color: rgba(0, 0, 0, 0.24);
+                        }
+                    }
+                    position: relative;
+                    .event-box {
+                        margin: 0 auto;
+                        position: absolute;
+                        top: 10px;
+                        width: 7.5vw;
+                        transform: scale(.9);
+                        left: 0;
+                        font-family: "Montserrat";
+                        font-weight: 400;
+                        .event-item {
+                            text-align: left;
+                            cursor: pointer;
+                            font-size: 12px;
+                            background-color: #c7e6fd;
+                            font-weight: 400;
+                            margin-bottom: 2px;
+                            color: rgba(0, 0, 0, 0.87);
+                            padding: 0 0 0 4px;
+                            height: 18px;
+                            line-height: 18px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            &.is-start {
+                                margin-left: 4px;
+                                // border-top-left-radius:4px;
+                                // border-bottom-left-radius:4px;
+                            }
+                            &.is-end {
+                                margin-right: 4px;
+                                // border-top-right-radius:4px;
+                                // border-bottom-right-radius:4px;
+                            }
+                            &.is-opacity {
+                                opacity: 0;
+                            }
+                        }
+                        .more-link {
+                            cursor: pointer;
+                            // text-align: right;
+                            padding-left: 8px;
+                            padding-right: 2px;
+                            color: rgba(0, 0, 0, 0.38);
+                            font-size: 14px;
+                        }
+                    }
+                }
             }
-            .more-link {
-              cursor: pointer;
-              // text-align: right;
-              padding-left: 8px;
-              padding-right: 2px;
-              color: rgba(0, 0, 0, 0.38);
-              font-size: 14px;
+        }
+        .more-events {
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40vw;
+            height: 50vh;
+            z-index: 2;
+            background: rgba(255,255,255,.95);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            .more-header {
+                padding: 15px 5px;
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+                .title {
+                    flex: 1;
+                }
+                .close {
+                    margin-right: 10px;
+                    cursor: pointer;
+                    font-size: 20px;
+                }
             }
-          }
+            .more-body {
+                overflow: hidden;
+                max-height: 40vh;
+                font-family: "Montserrat";
+                .body-list {
+                    max-height: 40vh;
+                    padding: 5px;
+                    overflow: auto;
+                    background-color: #fff;
+                    list-style: none;
+                    font-weight: 400;
+                    text-align: left;
+                    .body-item {
+                        cursor: pointer;
+                        font-size: 12px;
+                        background-color: #c7e6fd;
+                        margin-bottom: 2px;
+                        color: rgba(0, 0, 0, 0.87);
+                        padding: 7px 20px;
+                    }
+                }
+            }
         }
-      }
     }
-    .more-events {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 40vw;
-      height: 50vh;
-      background: #fff;
-      z-index: 2;
-      border: 1px solid #eee;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      .more-header {
-        background-color: #eee;
-        padding: 15px 5px;
-        display: flex;
-        align-items: center;
-        font-size: 14px;
-        .title {
-          flex: 1;
-        }
-        .close {
-          margin-right: 5px;
-          cursor: pointer;
-          margin-top: -7px;
-          font-size: 26px;
-        }
-      }
-      .more-body {
-        height: 140px;
-        overflow: hidden;
-        .body-list {
-          height: 120px;
-          padding: 5px;
-          overflow: auto;
-          background-color: #fff;
-          .body-item {
-            cursor: pointer;
-            font-size: 12px;
-            background-color: #c7e6fd;
-            margin-bottom: 2px;
-            color: rgba(0, 0, 0, 0.87);
-            padding: 0 0 0 4px;
-            height: 18px;
-            line-height: 18px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-        }
-      }
-    }
-  }
 }
 </style>

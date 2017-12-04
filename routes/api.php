@@ -31,6 +31,8 @@ Route::group(['middleware' => ['cors', 'auth:api']], function () {
     Route::resource('enderecos', 'EnderecoController');
 
     Route::resource('clientes', 'ClienteController');
+
+    Route::get('/relatorios', 'RelatorioController@index');
 });
 
 

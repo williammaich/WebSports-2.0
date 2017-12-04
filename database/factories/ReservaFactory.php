@@ -20,6 +20,7 @@ $factory->define(App\Reserva::class, function (Faker $faker) {
       'dataReservada' => $faker->dateTimeThisMonth('now', date_default_timezone_get()),
       'quadra_id' => 1,
       'pagamento_id' => 1,
+      'quantidade' => 1,
       'cliente_id' => $faker->numberBetween(1,30),
       'created_at' => date('Y-m-d h:i:s'),
       'updated_at' => date('Y-m-d h:i:s')

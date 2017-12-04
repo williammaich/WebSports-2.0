@@ -11,10 +11,9 @@
     <table class="table" :class="tableClass">
       <tr :class="classCreate">
         <td v-for="column in columns" @keypress.enter="createSubmit($event)" :key="column.id">
-          <select :data-column="column.name" v-if="column.type == 'select'" :placeholder="column.name">
-            <option value="nothing" selected disabled>Cliente</option>
-            <option v-for="data in subData" :key="data.id">{{data['nome do cliente']}}</option>
-            </select>
+          <v-select :data-column="column.name" v-if="column.type == 'select'" v-model="clientSelected" :options="subData">
+
+          </v-select>
           <input v-mask="column.mask" :data-column="column.name" :type="column.type" v-else-if="column.mask" :placeholder="column.name" />
           <input :data-column="column.name" :type="column.type" v-else :placeholder="column.name" />
         </td>
@@ -50,6 +49,9 @@ function delay(t) {
 import {
   mask
 } from "vue-the-mask";
+import flatpickr from 'flatpickr'
+import vSelect from 'vue-select'
+
 
 export default {
   data() {
@@ -62,6 +64,9 @@ export default {
   },
   directives: {
     mask
+  },
+  components: {
+    vSelect
   },
   props: {
     columns: Array,
@@ -196,6 +201,16 @@ input:read-only {
     transform: 1s;
     visibility: hidden;
     display: none;
+
+}
+.v-select{
+  border: none !important;
+  color: none !important;
+  background: none !important;
+}
+.table-create input[type=search] {
+  background: #fff !important;
+  border: none !important;
 }
 
 .table-create input {

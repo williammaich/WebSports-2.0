@@ -3,13 +3,13 @@
 
   <vue-calendar :events="reservas" locale="en" @eventClick="handleClick($event)">
   </vue-calendar>
-  <div class="reserva" v-show="viewReserva">
+  <div class="reserva" :class="reserva_class">
     <div class="reserva__header">
       <div class="reserva--column">
         <span class="reserva__title">Edição de Reserva</span>
-        <span class="reserva__subtitle">Dê dois cliques no campo para editar</span>
+        <span class="reserva__subtitle">Dê dois cliques no campo para editar e enter para salvar</span>
       </div>
-      <span class="ti-close reserva__close" @click.stop="viewReserva = false"></span>
+      <span class="ti-close reserva__close" @click.stop="reserva_class = 'reserva--closed'"></span>
     </div>
     <div class="reserva__body">
       <div class="reserva__input-group">
@@ -51,8 +51,8 @@ export default {
   },
   data() {
     return {
-      viewReserva: false,
       id: 0,
+      reserva_class: '',
       reserva: {
         cliente: {
           cpf: "",
@@ -98,14 +98,14 @@ export default {
     mask
   },
   components: {
-    VueCalendar
+    VueCalendar,
+    DatePicker
   },
   methods: {
     async handleClick(e) {
       this.id = e.id
       this.$Progress.start()
       console.log(e);
-      this.viewReserva = true;
       let reserva;
       await this.$http.get(`http://localhost:8000/api/reservas/${e.id}`).then(res => {
         console.log(res.body)
@@ -113,6 +113,8 @@ export default {
       });
       this.reserva = reserva;
       this.$Progress.finish()
+      this.reserva_class = 'reserva--active'
+
     },
     edit(e) {
       e.target.removeAttribute("readonly");
@@ -137,16 +139,23 @@ export default {
 
 .reserva {
   position: fixed;
+  height: 100vh;
+  right: 0;
+  top: 0;
+  transform: translateX(35vw);
   display: flex;
   flex-direction: column;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80vw;
+  width: 35vw;
   z-index: 9000;
   background: rgba(255, 255, 255, 0.97);
   padding: 30px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  &--closed {
+    animation: translateX-reverse .4s forwards;
+  }
+  &--active {
+    animation: translateX .4s forwards;
+  }
   &--column {display: flex;
     flex-direction: column;
     align-items: center;
@@ -156,6 +165,7 @@ export default {
   &__header {
     width: 100%;
     display: flex;
+    margin-bottom: 40px;
     justify-content: space-between;
   }
   &__title {
@@ -169,20 +179,38 @@ export default {
   }
   &__input-group {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: baseline;
-
+    border-bottom: 1px solid rgba(50,50,50,.1);
+    margin-bottom: 10px;
     label {
-      flex-basis: 20vw;
       text-align: right;
       margin-right: 20px;
     }
     input {
       text-align: left;
-      padding-left: 10px;
+      padding-left: 0;
       color: #444;
       font-weight: 400;
+      cursor: pointer;
     }
   }
+}
+
+@keyframes translateX {
+    0% {
+      transform: translateX(35vw);
+    }
+    100% {
+      transform: translateX(0);
+    }
+}
+@keyframes translateX-reverse {
+  0% {
+    transform:  translateX(0);
+  }
+    100% {
+      transform:  translateX(35vw);
+    }
 }
 </style>

@@ -37,24 +37,56 @@ export default {
         "nome"
       );
       console.log(payload.data);
+      let data;
       if (payload.data.column == "Endereço") {
         payload.data.rua = payload.data.value.split(",")[0];
         payload.data.numero = payload.data.value.split(",")[1].trim();
         payload.data.complemento =
-          payload.data.value.split(",")[2].trim() || "";
+        payload.data.value.split(",")[2].trim() || "";
+        data = {
+          endereco : {
+            rua: payload.data.rua,
+            numero : payload.data.numero,
+            complemento: payload.data.complemento
+          }
+        }
+      } else {
+        data = {
+          [payload.data.column] : payload.data.value
+        }
       }
+      console.log(data)
 
-      this.$store.dispatch("update-clientes", payload.data);
-      this.$store.dispatch("load-clientes");
+      this.$http.put('http://localhost:8000/api/clientes/' + payload.data.id, data)
     },
     handleCreate(payload) {
-      //       let data = {
-      //   name: payload["Nome do Usuario"],
-      //   email: payload["Email"],
-      //   password: payload["Senha"]
-      // }
-      // this.$store.dispatch("create-users", data)
-      // this.$store.dispatch("load-users");
+      console.log(payload)
+    //   payload.data.column = payload.data.column.replace(
+    //     "Nome do Cliente",
+    //     "nome"
+    //   );
+    //   console.log(payload.data);
+    //   let data;
+    //   if (payload.data.column == "Endereço") {
+    //     payload.data.rua = payload.data.value.split(",")[0];
+    //     payload.data.numero = payload.data.value.split(",")[1].trim();
+    //     payload.data.complemento =
+    //     payload.data.value.split(",")[2].trim() || "";
+    //     data = {
+    //       endereco : {
+    //         rua: payload.data.rua,
+    //         numero : payload.data.numero,
+    //         complemento: payload.data.complemento
+    //       }
+    //     }
+    //   } else {
+    //     data = {
+    //       [payload.data.column] : payload.data.value
+    //     }
+    //   }
+    //   console.log(data)
+    //
+    //   this.$http.post('http://localhost:8000/api/clientes/', data)
     }
   },
   mounted() {

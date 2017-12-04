@@ -32,7 +32,7 @@ export default {
       return this.$store.state.reservas
     },
     clientes() {
-      return this.$store.state.clientes;
+      return this.$store.state.clientes.map((value,index) => value['nome do cliente']);
     }
   },
   methods: {

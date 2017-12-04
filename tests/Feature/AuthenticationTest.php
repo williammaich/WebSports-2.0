@@ -43,7 +43,7 @@ class AuthenticationTest extends TestCase
             ])->getContent();
         // Rodar vendor/bin/phpunit --verbose 
         // para conseguir debugar essas variaveis \/
-        // fwrite(STDERR, print_r(json_decode($token), TRUE));
+         fwrite(STDERR, print_r(json_decode($token), TRUE));
         // fwrite(STDERR, print_r($user, TRUE));
         // fwrite(STDERR, print_r($client_token, TRUE));
             

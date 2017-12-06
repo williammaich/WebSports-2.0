@@ -1,8 +1,6 @@
-language: php
-
+language:       php
 php:
-  - 7.1 
-
+  - 7.1
 before_script:
   - cp .env.example .env
   - mysql -e 'create database websports;'
@@ -12,6 +10,15 @@ before_script:
   - php artisan migrate
   - php artisan db:seed
   - php artisan passport:install
-
 script:
-- vendor/bin/phpunit
+  - vendor/bin/phpunit
+deploy:
+  provider:     heroku
+  api_key:
+    secure:     T9hQbWXzRHv10bE1rMqTPTg1mm1akeCidrBduL6o8n3z2xEWFk7E88fl5IMoaXbze3CjqHBO016cowmtj/3yONElY1UZTDxoJ+7yt958i0xSyrNWTpyDaaZHnSwVQv9A0QuEYgwrxNzBhN8fW6qGcwWw7WuLvBr4q3WrdM8WBla2MznUhNRCF6x7XhFNMu8PjwadgRuGPw8m+c4vU28F+Tftu51lll8aes0EiI+Ji2+ODER0BnPDhnO/NHv7zTTsZWsgRagOgOBF9OdOgWWuIOfibrLAHWi14AHQN3IsPHdef20T+pwMZtnnyZyS+Rfg6UjxtQOu07xqYhFHk2wqLSqmegkK+I+BhlO+Xrp0uQnXqs27VJZt5UxkgMLxW3dK3oBWNbvEL1cegwqbCzI5uZdW5FIHMvIdj7i7q8h1vMGQpE9TQupTPT8XrPGSZXx3hOD+xOPq5aLy/j+kru4Yf3q61MjwAS/pPkDp2ThCjpM2dit2Xk58LLBIfZgc9CmCWmODXhKkdiBVeJNIUgEhPe4+jg5s0gLJuTjcrjzhWOr5PI/9uvDqMTXzgJrkNJ+XrZY7/CZ/M0YW0XIl+SlvSNLjX13X7ZrP05Zj32X5nOGqRkU9sSwNA8LmKlXqAfmTmdkTu+QQg53PzqtwTRQ3ojtTZn8yz/EEpiuszjDIncs=
+  app:          
+    develop:    websports
+  on:
+    repo:       mglnb/WebSports-2.0
+after_deploy:
+  - heroku config:set APP_KEY=${php artisan key:generate --show}

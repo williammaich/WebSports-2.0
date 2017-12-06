@@ -20,9 +20,9 @@ deploy:
     develop:    websports
   on:
     repo:       mglnb/WebSports-2.0
-after_deploy:
-  - cp .env.heroku .env
-  - php artisan key:generate
-  - php artisan migrate
-  - php artisan db:seed
-  - php artisan passport:install
+  run:
+    - cp .env.heroku .env
+    - php artisan key:generate
+    - php artisan migrate
+    - php artisan db:seed
+    - php artisan passport:install

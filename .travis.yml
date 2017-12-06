@@ -21,6 +21,6 @@ deploy:
   on:
     repo:       mglnb/WebSports-2.0
   run:
-    - heroku config:set APP_KEY=${php artisan key:generate --show}
+    - heroku config:set APP_KEY=base64:8fmUpqfairYYFa5CuHC1zbGUz0lCpyeTOv1KOJ4usiU=
     - php artisan migrate --seed --force
     - php artisan passport:install

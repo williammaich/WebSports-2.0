@@ -3,7 +3,7 @@
 
   <div class="col-md-12">
     <div class="card card-plain">
-      <paper-table @update="handleUpdate" :subData="clientes" type="hover" :title="table.title" :sub-title="table.subTitle" :sort="sort" :data="reservas" :columns="table.columns">
+      <paper-table @delete="handleDelete" @update="handleUpdate" :subData="clientes" type="hover" :title="table.title" :sub-title="table.subTitle" :sort="sort" :data="reservas" :columns="table.columns">
 
       </paper-table>
     </div>
@@ -15,7 +15,7 @@
 import PaperTable from "components/UIComponents/PaperTable.vue"
 const tableColumns = [
   {name: "Nome do Cliente", type:"select"},
-  {name: "Dia", type:"datetime", mask:"##/##/#### ##:##"}, 
+  {name: "Dia", type:"datetime", mask:"##/##/#### ##:##"},
   {name: "Reservas", type:"number"}]
 
 export default {
@@ -32,7 +32,7 @@ export default {
       return this.$store.state.reservas
     },
     clientes() {
-      return this.$store.state.clientes;
+      return this.$store.state.clientes.map((value,index) => value['nome do cliente']);
     }
   },
   methods: {
@@ -58,7 +58,13 @@ export default {
     //   }
     //   this.$store.dispatch("create-users", data)
     //   this.$store.dispatch("load-users");
-    }
+  },
+  async handleDelete(payload) {
+    this.$Progress.start()
+    await this.$http.delete(`http://localhost:8000/api/reservas/${payload.target.id}`)
+    this.$store.dispatch("load-reservas");
+    this.$Progress.finish()
+  }
   },
   mounted() {
     console.log(this.reservas)

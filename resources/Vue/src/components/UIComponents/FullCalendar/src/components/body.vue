@@ -39,7 +39,7 @@
     <div class="more-events" v-show="showMore">
       <div class="more-header">
         <span class="title">{{moreTitle(selectDay.date)}}</span>
-        <span class="close" @click.stop="showMore = false">x</span>
+        <span class="ti-close close" @click.stop="showMore = false"></span>
       </div>
       <div class="more-body">
         <ul class="body-list">
@@ -113,12 +113,7 @@ export default {
     },
     moreTitle(date) {
       let dt = new Date(date);
-      return (
-        this.weekNames[dt.getDay()] +
-        ", " +
-        this.monthNames[dt.getMonth()] +
-        dt.getDate()
-      );
+      return `${this.weekNames[dt.getDay()]}, ${this.monthNames[dt.getMonth()]} ${dt.getDate()}`
     },
     classNames(cssClass) {
       if (!cssClass) return "";
@@ -336,14 +331,17 @@ export default {
                         margin: 0 auto;
                         position: absolute;
                         top: 10px;
-                        width: 130px;
+                        width: 7.5vw;
                         transform: scale(.9);
                         left: 0;
+                        font-family: "Montserrat";
+                        font-weight: 400;
                         .event-item {
                             text-align: left;
                             cursor: pointer;
                             font-size: 12px;
                             background-color: #c7e6fd;
+                            font-weight: 400;
                             margin-bottom: 2px;
                             color: rgba(0, 0, 0, 0.87);
                             padding: 0 0 0 4px;
@@ -398,21 +396,22 @@ export default {
                     flex: 1;
                 }
                 .close {
-                    margin-right: 5px;
+                    margin-right: 10px;
                     cursor: pointer;
-                    margin-top: -7px;
-                    font-size: 26px;
+                    font-size: 20px;
                 }
             }
             .more-body {
                 overflow: hidden;
                 max-height: 40vh;
+                font-family: "Montserrat";
                 .body-list {
                     max-height: 40vh;
                     padding: 5px;
                     overflow: auto;
                     background-color: #fff;
                     list-style: none;
+                    font-weight: 400;
                     text-align: left;
                     .body-item {
                         cursor: pointer;

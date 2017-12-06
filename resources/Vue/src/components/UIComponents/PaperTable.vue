@@ -11,10 +11,9 @@
     <table class="table" :class="tableClass">
       <tr :class="classCreate">
         <td v-for="column in columns" @keypress.enter="createSubmit($event)" :key="column.id">
-          <select :data-column="column.name" v-if="column.type == 'select'" :placeholder="column.name">
-            <option value="nothing" selected disabled>Cliente</option>
-            <option v-for="data in subData" :key="data.id">{{data['nome do cliente']}}</option>
-            </select>
+          <v-select :data-column="column.name" v-if="column.type == 'select'" v-model="clientSelected" :options="subData">
+
+          </v-select>
           <input v-mask="column.mask" :data-column="column.name" :type="column.type" v-else-if="column.mask" :placeholder="column.name" />
           <input :data-column="column.name" :type="column.type" v-else :placeholder="column.name" />
         </td>
@@ -22,7 +21,7 @@
     </table>
     <table class="table" :class="tableClass">
       <thead>
-        <th v-for="column in columns" @click="setSort(column)" :key="column.id">{{column.name}}</th>
+        <th v-for="column in columns" @click="setSort(column.name)" :key="column.id">{{column.name}} <span :class="sortOrder ? 'ti-arrow-up' : 'ti-arrow-down'"></span> </th>
         <th> Ações </th>
       </thead>
       <tbody>
@@ -32,8 +31,8 @@
             <input :type="column.type" v-else readonly="true" @keydown.enter="addReadonly($event, column.name)" @dblclick="edit($event)" :value="itemValue(item, column.name)">
           </td>
           <td>
-            <span @click="view" class="ti-info view"></span>
-            <span @click="remove" class="ti-close remove"></span>
+            <span @click="view" :id="itemValue(item, 'id')" class="ti-info control view"></span>
+            <span @click="remove" :id="itemValue(item, 'id')" class="ti-close control remove"></span>
           </td>
         </tr>
       </tbody>
@@ -50,16 +49,24 @@ function delay(t) {
 import {
   mask
 } from "vue-the-mask";
+import flatpickr from 'flatpickr'
+import vSelect from 'vue-select'
+
 
 export default {
   data() {
     return {
       toggleCreate: false,
-      classCreate: "table-create"
+      classCreate: "table-create",
+      sortTable: 'id',
+      sortOrder: true
     };
   },
   directives: {
     mask
+  },
+  components: {
+    vSelect
   },
   props: {
     columns: Array,
@@ -92,7 +99,7 @@ export default {
       return `table-${this.type}`;
     },
     filtered() {
-      return _.sortBy(this.data, this.sort);
+      return _.orderBy(this.data, this.sortTable, this.sortOrder ? 'asc' : 'desc');
     }
   },
   methods: {
@@ -123,7 +130,7 @@ export default {
 
     },
     remove(e) {
-
+     this.$emit('delete', e)
     },
     createSubmit(e) {
       this.classCreate = "table-create closed";
@@ -136,12 +143,6 @@ export default {
       });
       this.$emit("createSubmit", data);
     },
-
-    sortBy: function(sortKey) {
-      this.reverse = this.sortKey === sortKey ? !this.reverse : false;
-
-      this.sortKey = sortKey;
-    },
     hasValue(item, column) {
       return item[column.toLowerCase()] !== "undefined";
     },
@@ -149,7 +150,8 @@ export default {
       return item[column.toLowerCase()];
     },
     setSort(value) {
-      this.sort = value.toLowerCase();
+      this.sortTable = value.toLowerCase()
+      this.sortOrder = !this.sortOrder
     }
   }
 };
@@ -158,7 +160,10 @@ export default {
 th {
     text-align: center;
 }
-
+.control {
+  cursor: pointer;
+  padding: 5px 10px;
+}
 input,
 select {
     width: 95%;
@@ -195,6 +200,17 @@ input:read-only {
     height: 0;
     transform: 1s;
     visibility: hidden;
+    display: none;
+
+}
+.v-select{
+  border: none !important;
+  color: none !important;
+  background: none !important;
+}
+.table-create input[type=search] {
+  background: #fff !important;
+  border: none !important;
 }
 
 .table-create input {
@@ -203,10 +219,13 @@ input:read-only {
 }
 
 .table-create.opened {
-    animation: openCreate 0.3s forwards;
+  display: table-row;
+   animation: openCreate 0.3s forwards;
 }
 
 .table-create.closed {
+  display: table-row;
+
     animation: closeCreate 0.3s forwards;
 }
 
@@ -219,6 +238,13 @@ input:read-only {
     right: 0;
     top: 15px;
     cursor: pointer;
+}
+header, th {
+  font-family: Montserrat;
+  font-weight: 700;
+}
+td {
+  input {font-weight: 400;}
 }
 
 @keyframes openCreate {

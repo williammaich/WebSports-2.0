@@ -52,7 +52,7 @@ class ReservaController extends Controller
      */
     public function show($id)
     {
-        //
+        return Reserva::with('Cliente', 'Pagamento', 'Quadra')->find($id);
     }
 
     /**

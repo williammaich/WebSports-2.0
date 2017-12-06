@@ -22,8 +22,6 @@ Route::group(['middleware' => ['cors', 'auth:api']], function () {
 
     Route::resource('reservas', 'ReservaController');
 
-    Route::resource('reservas', 'ReservaController');
-
     Route::resource('tipoQuadras', 'TipoQuadraController');
 
     Route::resource('quadras', 'QuadraController');
@@ -33,6 +31,8 @@ Route::group(['middleware' => ['cors', 'auth:api']], function () {
     Route::resource('enderecos', 'EnderecoController');
 
     Route::resource('clientes', 'ClienteController');
+
+    Route::get('/relatorios', 'RelatorioController@index');
 });
 
 

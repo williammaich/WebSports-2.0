@@ -59,6 +59,8 @@ export default {
       }
     },
     handleLogin () {
+      this.$Progress.start()
+
       const postData = {
         grant_type: 'password',
         client_id: this.clientId,
@@ -78,6 +80,8 @@ export default {
           }
           let header = this.getHeaders(authUser.token)
           this.$emit('success', {authUser, header})
+        }).catch((err)=>{
+          this.$emit('error', err)
         })
     }
   }

@@ -1,3 +1,5 @@
+<img src="https://travis-ci.org/mglnb/WebSports-2.0.svg?branch=develop" >
+
 ## WebSports - Sistema para Gerenciamento de Quadras Poliesportivas  
 
 ## Integrantes  

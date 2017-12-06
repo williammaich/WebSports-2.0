@@ -30,9 +30,11 @@ const mutations = {
 
 const actions = {
   'load-clientes' (context) {
+    let clientes
     Vue.http.get('http://localhost:8000/api/clientes')
       .then(response => {
-        let clientes = response.data.map(element => {
+        let res = response
+        clientes = res.data.map(element => {
           return {
             'id': element.id,
             'nome do cliente': element.nome,

@@ -10,23 +10,21 @@
   <div class="content table-responsive table-full-width">
     <table class="table" :class="tableClass">
       <tr :class="classCreate">
-        <td v-for="column in columns" @keypress.enter="createSubmit($event)" :key="column.id">
-          <v-select :data-column="column.name" v-if="column.type == 'select'" v-model="clientSelected" :options="subData">
-
-          </v-select>
-          <input v-mask="column.mask" :data-column="column.name" :type="column.type" v-else-if="column.mask" :placeholder="column.name" />
-          <input :data-column="column.name" :type="column.type" v-else :placeholder="column.name" />
+        <td v-for="column in columns[0]" @keypress.enter="createSubmit($event)" :key="column.id">
+            <v-select v-if="column.type == 'select'" v-model="clientSelected" :options="subData"></v-select>
+            <input required v-mask="column.mask" :data-column="column.name" :type="column.type" v-else-if="column.mask" :placeholder="column.name" />
+            <input required :data-column="column.name" :type="column.type" v-else :placeholder="column.name" />
         </td>
       </tr>
     </table>
     <table class="table" :class="tableClass">
       <thead>
-        <th v-for="column in columns" @click="setSort(column.name)" :key="column.id">{{column.name}} <span :class="sortOrder ? 'ti-arrow-up' : 'ti-arrow-down'"></span> </th>
+        <th v-for="column in columns[0]" @click="setSort(column.name)" :key="column.id">{{column.name}} <span :class="sortOrder ? 'ti-arrow-up' : 'ti-arrow-down'"></span> </th>
         <th> Ações </th>
       </thead>
       <tbody>
         <tr v-for="item in filtered" :key="item.id" :id="item.id">
-          <td v-for="column in columns" v-if="hasValue(item, column.name)" :key="column.id">
+          <td v-for="column in columns[0]" v-if="hasValue(item, column.name)" :key="column.id">
             <input :type="column.type" v-if="column.mask" v-mask="column.mask" readonly="true" @keydown.enter="addReadonly($event, column.name)" @dblclick="edit($event)" :value="itemValue(item, column.name)">
             <input :type="column.type" v-else readonly="true" @keydown.enter="addReadonly($event, column.name)" @dblclick="edit($event)" :value="itemValue(item, column.name)">
           </td>
@@ -99,7 +97,10 @@ export default {
       return `table-${this.type}`;
     },
     filtered() {
-      return _.orderBy(this.data, this.sortTable, this.sortOrder ? 'asc' : 'desc');
+      let data = this.data;
+      let sortTable = this.sortTable;
+      let sortOrder = this.sortOrder;
+      return _.orderBy(data, sortTable, sortOrder ? 'asc' : 'desc');
     }
   },
   methods: {

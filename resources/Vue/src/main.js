@@ -63,7 +63,7 @@ Vue.http.interceptors.push(function(request, next) {
 
   // continue to next interceptor
   next(function(response) {
-    
+
     if (response.status == 500) {
       if (response.data.message == "Token has expired, but is still valid.") {
         console.log("RETRY", response);

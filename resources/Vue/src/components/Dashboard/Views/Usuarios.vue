@@ -15,8 +15,8 @@
 import PaperTable from "components/UIComponents/PaperTable.vue";
 
 const tableColumns = [
-  {name:"Nome do Usuario"}, 
-  {name:"Email"}, 
+  {name:"Nome do Usuario"},
+  {name:"Email"},
   {name:"Senha"}];
 
 export default {
@@ -63,7 +63,7 @@ export default {
       table: {
         title: "Listagem de Usuários",
         subTitle: "Para qualquer alteração, clique duas vezes em cima do registro",
-        columns: [...tableColumns]
+        columns: [tableColumns]
       }
     };
   }

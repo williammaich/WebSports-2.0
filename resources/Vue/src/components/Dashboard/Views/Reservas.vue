@@ -76,7 +76,7 @@ export default {
       table: {
         title: "Listagem de Reservas",
         subTitle: "Para qualquer alteração, clique duas vezes em cima do registro",
-        columns: [...tableColumns]
+        columns: [tableColumns]
       }
     }
   }

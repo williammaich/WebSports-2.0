@@ -21,7 +21,7 @@ $factory->define(App\Cliente::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'cpf' => $faker->cpf(false),
         'saldo' => $faker->numberBetween(0, 1000),
-        'endereco_id' =>  $faker->numberBetween(1, 30),
+        'endereco_id' =>  $faker->numberBetween(1,2),
         'created_at' => date('Y-m-d h:i:s'),
         'updated_at' => date('Y-m-d h:i:s')
     ];

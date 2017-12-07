@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Reserva::class, function (Faker $faker) {
     static $password;
     $faker->addProvider(new \Faker\Provider\DateTime($faker));
-    $cliente = App\Cliente::all()->lists('id');
+    $cliente = App\Cliente::all()->pluck('id');
     return [
       'dataReservada' => $faker->dateTimeThisMonth('now', date_default_timezone_get()),
       'quadra_id' => 1,

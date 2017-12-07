@@ -16,12 +16,13 @@ use Faker\Generator as Faker;
 $factory->define(App\Reserva::class, function (Faker $faker) {
     static $password;
     $faker->addProvider(new \Faker\Provider\DateTime($faker));
+    $cliente = App\Cliente::all()->list('id');
     return [
       'dataReservada' => $faker->dateTimeThisMonth('now', date_default_timezone_get()),
       'quadra_id' => 1,
       'pagamento_id' => 1,
       'quantidade' => $faker->numberBetween(1,3),
-      'cliente_id' => $faker->numberBetween(1,30),
+      'cliente_id' => $faker->randomElement($cliente),
       'created_at' => date('Y-m-d h:i:s'),
       'updated_at' => date('Y-m-d h:i:s')
     ];

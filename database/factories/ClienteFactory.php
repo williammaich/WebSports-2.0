@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Cliente::class, function (Faker $faker) {
     static $password;
     $faker->addProvider(new \Faker\Provider\pt_BR\Person($faker));
-    $enderecos = App\Endereco::all()->pluck('id');
+    $enderecos = App\Endereco::all()->pluck('id')->toArray();
     return [
         'nome' => $faker->name,
         'email' => $faker->unique()->safeEmail,

@@ -11,6 +11,7 @@ class RelatorioController extends Controller
     {
         $users = DB::table('users')->count();
 
-        return $users->toJson();
+        //return $users->get()->toJson();
+        return Response::json($users);
     }
 }

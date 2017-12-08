@@ -47,32 +47,32 @@ senha
 ou
 
 1. Ligue o xampp.
-1. Baixe o projeto e coloque na pasta htdocs do xampp.
-1. Crie o banco de dados com o xampp com o nome:
+2. Baixe o projeto e coloque na pasta htdocs do xampp.
+3. Crie o banco de dados com o xampp com o nome:
 
 ```
    "websports"
 ```
 
-1. Abra o terminal e navegue até a pasta:
+4. Abra o terminal e navegue até a pasta:
 
 ```
    htdocs/websports-2.0
 ```
 
-1. Digite o comando no terminal:
+5. Digite o comando no terminal:
 
 ```   
    php artisan serve
 ```   
 
-1. Caso der erro digite:
+6. Caso der erro digite:
 
 ```
    composer update
 ```
 
-1. Abra o navegador e rode o projeto no:
+7. Abra o navegador e rode o projeto no:
 
 ```  
    localhost:8000

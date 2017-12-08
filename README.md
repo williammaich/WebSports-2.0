@@ -88,8 +88,7 @@ ou
 1. Plugins principal [FullCalendar.js](https://fullcalendar.io/)
 1. Para versionamento [GitHub](https://github.com/) e [Git](https://git-scm.com/).
 1. Para Testes de Back-end utilizamos o [PHPUnit com Laravel](https://laravel.com/docs/5.5/testing)
-1. Para Testes de Front-end utilizamos o [Laravel Dusk](https://laravel.com/docs/5.5/dusk)
-1. Para Testar a API usamos o [POSTMAN](https://www.getpostman.com/)
+1. Para Testar a API usamos o [INSOMNIA](https://insomnia.rest/)
 
 ## Licença 
 

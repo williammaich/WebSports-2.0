@@ -33,7 +33,7 @@ O trabalho tem por objetivo geral desenvolver um programa para gerenciar quadras
 
 ## Instalando 
 
-**Disponivel em** https://websports-client.herokuapp.com/[https://websports-client.herokuapp.com/]
+**Disponivel em** [https://websports-client.herokuapp.com/]
 
 login
 ```

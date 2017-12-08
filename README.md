@@ -33,6 +33,19 @@ O trabalho tem por objetivo geral desenvolver um programa para gerenciar quadras
 
 ## Instalando 
 
+**Disponivel em** https://websports-client.herokuapp.com/[https://websports-client.herokuapp.com/]
+
+login
+```
+admin@websports.com
+```
+senha
+```
+123
+```
+
+ou
+
 1. Ligue o xampp.
 1. Baixe o projeto e coloque na pasta htdocs do xampp.
 1. Crie o banco de dados com o xampp com o nome:

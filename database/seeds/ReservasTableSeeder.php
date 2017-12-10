@@ -19,6 +19,6 @@ class ReservasTableSeeder extends Seeder
         //     'created_at' => date('Y-m-d h:i:s'),
         //     'updated_at' => date('Y-m-d h:i:s')
         // ]);
-        factory(\App\Reserva::class, 30)->create();
+        factory(\App\Reserva::class, 150)->create();
     }
 }

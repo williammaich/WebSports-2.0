@@ -18,7 +18,7 @@ $factory->define(App\Reserva::class, function (Faker $faker) {
     $faker->addProvider(new \Faker\Provider\DateTime($faker));
     $cliente = App\Cliente::all()->pluck('id')->toArray();
     return [
-      'dataReservada' => $faker->dateTimeThisMonth('now', date_default_timezone_get()),
+      'dataReservada' => $faker->dateTimeThisYear('now', date_default_timezone_get()),
       'quadra_id' => 1,
       'pagamento_id' => 1,
       'quantidade' => $faker->numberBetween(1,3),

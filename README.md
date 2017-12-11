@@ -33,33 +33,46 @@ O trabalho tem por objetivo geral desenvolver um programa para gerenciar quadras
 
 ## Instalando 
 
+**Disponivel em** [https://websports-client.herokuapp.com/]
+
+login
+```
+admin@websports.com
+```
+senha
+```
+123
+```
+
+ou
+
 1. Ligue o xampp.
-1. Baixe o projeto e coloque na pasta htdocs do xampp.
-1. Crie o banco de dados com o xampp com o nome:
+2. Baixe o projeto e coloque na pasta htdocs do xampp.
+3. Crie o banco de dados com o xampp com o nome:
 
 ```
    "websports"
 ```
 
-1. Abra o terminal e navegue até a pasta:
+4. Abra o terminal e navegue até a pasta:
 
 ```
    htdocs/websports-2.0
 ```
 
-1. Digite o comando no terminal:
+5. Digite o comando no terminal:
 
 ```   
    php artisan serve
 ```   
 
-1. Caso der erro digite:
+6. Caso der erro digite:
 
 ```
    composer update
 ```
 
-1. Abra o navegador e rode o projeto no:
+7. Abra o navegador e rode o projeto no:
 
 ```  
    localhost:8000
@@ -75,8 +88,7 @@ O trabalho tem por objetivo geral desenvolver um programa para gerenciar quadras
 1. Plugins principal [FullCalendar.js](https://fullcalendar.io/)
 1. Para versionamento [GitHub](https://github.com/) e [Git](https://git-scm.com/).
 1. Para Testes de Back-end utilizamos o [PHPUnit com Laravel](https://laravel.com/docs/5.5/testing)
-1. Para Testes de Front-end utilizamos o [Laravel Dusk](https://laravel.com/docs/5.5/dusk)
-1. Para Testar a API usamos o [POSTMAN](https://www.getpostman.com/)
+1. Para Testar a API usamos o [INSOMNIA](https://insomnia.rest/)
 
 ## Licença 
 

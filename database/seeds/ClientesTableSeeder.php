@@ -21,7 +21,7 @@ class ClientesTableSeeder extends Seeder
         //     'updated_at' => date('Y-m-d h:i:s')
         // ]);
 
-        factory(\App\Cliente::class,30)->create();
+        factory(\App\Cliente::class,60)->create();
 
 
     }

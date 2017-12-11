@@ -15,6 +15,8 @@ class AuthenticationTest extends TestCase
         $this->json('GET', '/api/user/')
             ->assertStatus(200);
     }
+
+
     public function test_create_an_access_token()
     {
         $user = factory(\App\User::class)->create();

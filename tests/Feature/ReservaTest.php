@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Reserva;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -12,7 +13,7 @@ class ReservaTest extends TestCase
      *
      * @return void
      */
-    public function test_Reserva_index()
+    public function test_reserva_index()
     {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
@@ -26,34 +27,50 @@ class ReservaTest extends TestCase
     }
 
 
-    public function test_cliente_create() {
+    public function test_reserva_create() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
 
         $reservas = $this->json('POST', '/api/reservas/', array(
 
-            "dataReservada" => "2017-10-20 10:00:00",
-            //     'quadra_id' => 1",
-            //     'pagamento_id' => 1,
-            //     'cliente_id' => 1,
-            //     'created_at' => date('Y-m-d h:i:s'),
-            //     'updated_at' => date('Y-m-d h:i:s')
+            "dataReservada" => "2017-11-20 10:00:00",
+            "quadra_id" => 1,
+            "pagamento_id" => 1,
+            "cliente_id" => 1,
+            "created_at" => date('Y-m-d h:i:s'),
+            "updated_at" => date('Y-m-d h:i:s')
 
-            "nome" => "William Maich",
-            "email" => "williammaich@gmail.com",
-            "cpf" => "258.151.140.01",
-            "saldo" => 200,
-            "endereco" => array(
-                "rua" => "Rua Lobo da Costa",
-                "numero" => 409,
-                "complemento" => "APT 401",
-                "cidade" => "Pelotas",
-                "cep" => "96010470"
-            )
+
         ))->assertJsonFragment(array(
-            "nome" => "William Maich"
+            "dataReservada" => "2017-11-20 10:00:00"
         ))->assertStatus(200);
     }
 
+    public function test_reserva_update() {
+        $user = factory(\App\User::class)->create();
+        $this->actingAs($user, 'api');
 
+
+
+        $reservas = $this->json('PUT', '/api/reservas/1', array(
+            "dataReservada" => "2017-11-20 10:00:00"
+
+
+        ))->assertJsonFragment(array(
+            "dataReservada" => "2017-11-20 10:00:00"
+
+        ))->assertStatus(200);
+    }
+
+    public function test_reserva_show() {
+        $user = factory(\App\User::class)->create();
+        $this->actingAs($user, 'api');
+        $reserva = Reserva::find(2);
+
+
+        $reservas = $this->json('GET', '/api/reservas/2')
+            ->assertJsonFragment(array(
+                "dataReservada" => $reserva->dataReservada
+            ))->assertStatus(200);
+    }
 }

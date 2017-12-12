@@ -86,11 +86,6 @@ class ReservaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'quantidade' => 'required',
-            'dataReservada' => 'required',
-            'cliente_id' => 'required',
-        ]);
 
         $reserva = $request->all();
 

@@ -85,11 +85,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|max:191',
-            'email' => 'required|unique:users',
-            'password' => 'required',
-        ]);
 
         // obtém os dados do form
         $dadosFormulario = $request->all();

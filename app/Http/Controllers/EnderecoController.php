@@ -83,12 +83,7 @@ class EnderecoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'rua' => 'required|max:120',
-            'numero' => 'required',
-            'cidade' => 'required|max:45',
-            'cep' => 'required',
-        ]);
+
 
         $endereco = $request->all();
 

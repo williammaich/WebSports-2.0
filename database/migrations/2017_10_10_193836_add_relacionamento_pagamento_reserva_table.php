@@ -18,7 +18,7 @@ class AddRelacionamentoPagamentoReservaTable extends Migration
 
                         $table->foreign('pagamento_id')
                             ->references('id')->on('pagamentos')
-                            ->onDelete('restrict');
+                            ->onDelete('cascade');
         });
     }
 

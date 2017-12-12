@@ -37,6 +37,12 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nome' => 'required|max:150',
+            'email' => 'required|max:120',
+            'cpf' => 'required|max:11',
+        ]);
+
         // $cliente = Cliente::with('Endereco')->get();
 
         $cliente = $request->all();
@@ -77,6 +83,12 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nome' => 'required|max:150',
+            'email' => 'required|max:120',
+            'cpf' => 'required|max:11',
+        ]);
+
         $cliente = $request->all();
 
         $reg = Cliente::with('Endereco')->find($id);

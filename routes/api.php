@@ -32,7 +32,8 @@ Route::group(['middleware' => ['cors', 'auth:api']], function () {
 
     Route::resource('clientes', 'ClienteController');
 
+    Route::get('/relatorios', 'RelatorioController@index');
 });
 
-    Route::get('/relatorios', 'RelatorioController@index');
+  
 

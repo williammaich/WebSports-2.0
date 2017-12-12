@@ -18,7 +18,7 @@ class AddRelacionamentoClienteReserva extends Migration
 
             $table->foreign('cliente_id')
                 ->references('id')->on('clientes')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
         });
     }
 

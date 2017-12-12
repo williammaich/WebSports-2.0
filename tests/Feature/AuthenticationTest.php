@@ -15,19 +15,6 @@ class AuthenticationTest extends TestCase
         $this->json('GET', '/api/user/')
             ->assertStatus(200);
     }
-    public function test_create_an_access_token()
-    {
-        $user = factory(\App\User::class)->create();
-
-        $token = $user->createToken('TestToken')->accessToken;
-
-        $header = [];
-        $header['Accept'] = 'application/json';
-        $header['Authorization'] = 'Bearer '.$token;
-
-        $this->json('GET', '/api/user', [], $header)
-                 ->assertStatus(200);
-    }
 
     public function test_create_an_access_token_with_api() {
         $user = \DB::table('users')->where('email', 'admin@websports.com')->first();
@@ -43,7 +30,7 @@ class AuthenticationTest extends TestCase
             ])->getContent();
         // Rodar vendor/bin/phpunit --verbose 
         // para conseguir debugar essas variaveis \/
-         fwrite(STDERR, print_r(json_decode($token), TRUE));
+//         fwrite(STDERR, print_r(json_decode($token), TRUE));
         // fwrite(STDERR, print_r($user, TRUE));
         // fwrite(STDERR, print_r($client_token, TRUE));
             

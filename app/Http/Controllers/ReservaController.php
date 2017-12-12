@@ -37,6 +37,12 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'quantidade' => 'required',
+            'dataReservada' => 'required',
+            'cliente_id' => 'required',
+        ]);
+
         $reserva = $request->all();
 
         Reserva::create($reserva);
@@ -80,6 +86,12 @@ class ReservaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'quantidade' => 'required',
+            'dataReservada' => 'required',
+            'cliente_id' => 'required',
+        ]);
+
         $reserva = $request->all();
 
         $reg = Reserva::with('Cliente', 'Pagamento', 'Quadra')->find($id);

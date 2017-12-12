@@ -63,6 +63,7 @@ class ClienteTest extends TestCase
             )
         ))->assertStatus(200);
     }
+
     public function test_client_show() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');

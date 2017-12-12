@@ -2,26 +2,23 @@
 
 namespace Tests\Feature;
 
-
-use App\Reserva;
-
+use App\Pagamento;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ReservaTest extends TestCase
+class PagamentoTest extends TestCase
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-
-    public function test_reserva_index()
+    public function test_pagamento_index()
     {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
 
-        $reservas = $this->json('GET', '/api/reservas/')
+        $pagamentos = $this->json('GET', '/api/pagamentos/')
             ->assertJsonFragment(array(
                 "id" => 1
             ))
@@ -30,54 +27,49 @@ class ReservaTest extends TestCase
     }
 
 
-    public function test_reserva_create()
-    {
+    public function test_pagamento_create() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
 
-        $reservas = $this->json('POST', '/api/reservas/', array(
+        $pagamentos = $this->json('POST', '/api/pagamentos/', array(
 
-            "dataReservada" => "2017-11-20 10:00:00",
-            "quadra_id" => 1,
-            "pagamento_id" => 1,
-            "cliente_id" => 1,
+            "valor" => 200,
+            "dataPagamento" => "2017-11-11 11:52:04",
             "created_at" => date('Y-m-d h:i:s'),
             "updated_at" => date('Y-m-d h:i:s')
 
 
         ))->assertJsonFragment(array(
-            "dataReservada" => "2017-11-20 10:00:00"
+            "valor" => 200,
+            "dataPagamento" => "2017-11-11 11:52:04"
         ))->assertStatus(200);
     }
 
-    public function test_reserva_update()
-    {
+    public function test_pagamento_update() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
 
 
-        $reservas = $this->json('PUT', '/api/reservas/1', array(
-            "dataReservada" => "2017-11-20 10:00:00"
+
+        $pagamentos = $this->json('PUT', '/api/pagamentos/1', array(
+            "valor" => 200
 
 
         ))->assertJsonFragment(array(
-            "dataReservada" => "2017-11-20 10:00:00"
+            "valor" => 200
 
         ))->assertStatus(200);
     }
 
-    public function test_reserva_show()
-    {
+    public function test_pagamento_show() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
-        $reserva = Reserva::find(2);
+        $pagamento = Pagamento::find(2);
 
 
-        $reservas = $this->json('GET', '/api/reservas/2')
+        $pagamentos = $this->json('GET', '/api/pagamentos/2')
             ->assertJsonFragment(array(
-                "dataReservada" => $reserva->dataReservada
+                "valor" => $pagamento->valor
             ))->assertStatus(200);
-
-
     }
 }

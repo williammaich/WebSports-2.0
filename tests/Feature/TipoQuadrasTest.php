@@ -2,26 +2,23 @@
 
 namespace Tests\Feature;
 
-
-use App\Reserva;
-
+use App\TipoQuadra;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ReservaTest extends TestCase
+class TipoQuadrasTest extends TestCase
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-
-    public function test_reserva_index()
+    public function test_tipoQuadra_index()
     {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
 
-        $reservas = $this->json('GET', '/api/reservas/')
+        $tquadras = $this->json('GET', '/api/tipoQuadras/')
             ->assertJsonFragment(array(
                 "id" => 1
             ))
@@ -30,54 +27,47 @@ class ReservaTest extends TestCase
     }
 
 
-    public function test_reserva_create()
-    {
+    public function test_tipoQuadras_create() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
 
-        $reservas = $this->json('POST', '/api/reservas/', array(
+        $tquadras = $this->json('POST', '/api/tipoQuadras/', array(
 
-            "dataReservada" => "2017-11-20 10:00:00",
-            "quadra_id" => 1,
-            "pagamento_id" => 1,
-            "cliente_id" => 1,
+            "descricao" => "Quadra 1",
             "created_at" => date('Y-m-d h:i:s'),
             "updated_at" => date('Y-m-d h:i:s')
 
 
         ))->assertJsonFragment(array(
-            "dataReservada" => "2017-11-20 10:00:00"
+            "descricao" => "Quadra 1"
         ))->assertStatus(200);
     }
 
-    public function test_reserva_update()
-    {
+    public function test_tipoQuadra_update() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
 
 
-        $reservas = $this->json('PUT', '/api/reservas/1', array(
-            "dataReservada" => "2017-11-20 10:00:00"
+
+        $tquadras = $this->json('PUT', '/api/tipoQuadras/1', array(
+            "descricao" => "Quadra 1"
 
 
         ))->assertJsonFragment(array(
-            "dataReservada" => "2017-11-20 10:00:00"
+            "descricao" => "Quadra 1"
 
         ))->assertStatus(200);
     }
 
-    public function test_reserva_show()
-    {
+    public function test_tipoQuadra_show() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
-        $reserva = Reserva::find(2);
+        $tquadra = TipoQuadra::find(1);
 
 
-        $reservas = $this->json('GET', '/api/reservas/2')
+        $tquadras = $this->json('GET', '/api/tipoQuadras/2')
             ->assertJsonFragment(array(
-                "dataReservada" => $reserva->dataReservada
+                "descricao" => $tquadra->descricao
             ))->assertStatus(200);
-
-
     }
 }

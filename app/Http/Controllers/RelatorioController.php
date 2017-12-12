@@ -11,9 +11,11 @@ class RelatorioController extends Controller
   {
     // Pq não assim?
     // DB::table não se precisa usar quando temos as models
-    // podemos utilizar chamando direto a model como fiz abaixo
     // $users = DB::table('users')->count();
+      //return $users->get()->toJson();
+      //return Response::json($users);
 
+    // podemos utilizar chamando direto a model como fiz abaixo
     $clientes = \App\Cliente::all()->count();
     $reservas = \App\Reserva::all()->count();
 

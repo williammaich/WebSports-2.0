@@ -52,7 +52,7 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        //
+        return Cliente::with('Endereco')->find($id);
     }
 
     /**

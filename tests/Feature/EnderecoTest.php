@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Reserva;
+use App\Endereco;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -67,7 +67,7 @@ class EnderecoTest extends TestCase
     public function test_endereco_show() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
-        $endereco = Reserva::find(2);
+        $endereco = Endereco::find(2);
 
 
         $enderecos = $this->json('GET', '/api/enderecos/2')

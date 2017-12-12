@@ -79,9 +79,6 @@ class TipoQuadraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'descricao' => 'required|max:100',
-        ]);
 
         $tipoQuadra = $request->all();
 

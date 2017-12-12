@@ -83,11 +83,6 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nome' => 'required|max:150',
-            'email' => 'required|max:120',
-            'cpf' => 'required|max:11',
-        ]);
 
         $cliente = $request->all();
 

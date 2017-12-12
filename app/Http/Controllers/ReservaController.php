@@ -37,9 +37,14 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        $reserva = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
+        $reserva = $request->all();
 
         Reserva::create($reserva);
+
+        // $reg = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
+
+        // $reg->create($reserva);
+
 
         return $this->index();
     }

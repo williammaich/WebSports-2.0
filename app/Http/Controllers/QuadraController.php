@@ -36,7 +36,9 @@ class QuadraController extends Controller
      */
     public function store(Request $request)
     {
-        $quadra = Quadra::with('TipoQuadra')->get()->toJson();
+        // $quadra = Quadra::with('TipoQuadra')->get()->toJson();
+
+        $quadra = $request->all();
 
         Quadra::create($quadra);
 

@@ -37,7 +37,9 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = Cliente::with('Endereco')->get();
+        // $cliente = Cliente::with('Endereco')->get();
+
+        $cliente = $request->all();
 
         Cliente::create($cliente);
 

@@ -18,7 +18,7 @@ class AddRelacionamentoQuadraReservaTable extends Migration
 
             $table->foreign('quadra_id')
                 ->references('id')->on('quadras')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
         });
     }
 

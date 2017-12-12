@@ -18,7 +18,7 @@ class AddRelacionamentoEnderecoCliente extends Migration
 
             $table->foreign('endereco_id')
                 ->references('id')->on('enderecos')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
         });
     }
 

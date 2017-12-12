@@ -53,7 +53,7 @@ class EnderecoController extends Controller
      */
     public function show($id)
     {
-        //
+        return Endereco::find($id);
     }
 
     /**

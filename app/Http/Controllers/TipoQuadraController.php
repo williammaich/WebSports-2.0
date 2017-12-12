@@ -52,7 +52,7 @@ class TipoQuadraController extends Controller
      */
     public function show($id)
     {
-        //
+        return TipoQuadra::find($id);
     }
 
     /**

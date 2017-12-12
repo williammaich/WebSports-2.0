@@ -2,7 +2,10 @@
 
 namespace Tests\Feature;
 
+<<<<<<< HEAD
 use App\Reserva;
+=======
+>>>>>>> develop
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -13,6 +16,7 @@ class ReservaTest extends TestCase
      *
      * @return void
      */
+<<<<<<< HEAD
     public function test_reserva_index()
     {
         $user = factory(\App\User::class)->create();
@@ -72,5 +76,10 @@ class ReservaTest extends TestCase
             ->assertJsonFragment(array(
                 "dataReservada" => $reserva->dataReservada
             ))->assertStatus(200);
+=======
+    public function testExample()
+    {
+        $this->assertTrue(true);
+>>>>>>> develop
     }
 }

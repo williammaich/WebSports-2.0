@@ -51,7 +51,7 @@ class QuadraController extends Controller
      */
     public function show($id)
     {
-        //
+        return Quadra::with('TipoQuadra')->find($id);
     }
 
     /**

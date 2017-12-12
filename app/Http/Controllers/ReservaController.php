@@ -32,7 +32,7 @@ class ReservaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,7 +47,7 @@ class ReservaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -58,7 +58,7 @@ class ReservaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -69,8 +69,8 @@ class ReservaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -79,13 +79,13 @@ class ReservaController extends Controller
 
         $reg = Reserva::with('Cliente', 'Pagamento', 'Quadra')->find($id);
 
-        if(isset($reserva['cliente'])) {
+        if (isset($reserva['cliente'])) {
             $reg->cliente->update($reserva['cliente']);
         }
-        if(isset($reserva['quadra'])) {
+        if (isset($reserva['quadra'])) {
             $reg->quadra->update($reserva['quadra']);
         }
-        if(isset($reserva['pagamento'])) {
+        if (isset($reserva['pagamento'])) {
             $reg->pagamento->update($reserva['pagamento']);
         }
 
@@ -97,7 +97,7 @@ class ReservaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

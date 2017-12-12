@@ -62,7 +62,7 @@ class TipoQuadrasTest extends TestCase
     public function test_tipoQuadra_show() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
-        $tquadra = TipoQuadra::find(2);
+        $tquadra = TipoQuadra::find(1);
 
 
         $tquadras = $this->json('GET', '/api/tipoQuadras/2')

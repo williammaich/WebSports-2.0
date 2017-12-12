@@ -63,7 +63,7 @@ class QuadrasTest extends TestCase
     public function test_quadra_show() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
-        $quadra = Quadra::find(2);
+        $quadra = Quadra::find(1);
 
 
         $quadras = $this->json('GET', '/api/quadras/2')

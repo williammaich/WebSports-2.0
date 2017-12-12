@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Pagameto;
+use App\Pagamento;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -64,7 +64,7 @@ class PagamentoTest extends TestCase
     public function test_pagamento_show() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
-        $pagamento = Pagameto::find(2);
+        $pagamento = Pagamento::find(2);
 
 
         $pagamentos = $this->json('GET', '/api/pagamentos/2')

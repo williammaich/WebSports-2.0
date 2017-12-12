@@ -2,10 +2,9 @@
 
 namespace Tests\Feature;
 
-<<<<<<< HEAD
+
 use App\Reserva;
-=======
->>>>>>> develop
+
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -16,7 +15,7 @@ class ReservaTest extends TestCase
      *
      * @return void
      */
-<<<<<<< HEAD
+
     public function test_reserva_index()
     {
         $user = factory(\App\User::class)->create();
@@ -31,7 +30,8 @@ class ReservaTest extends TestCase
     }
 
 
-    public function test_reserva_create() {
+    public function test_reserva_create()
+    {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
 
@@ -50,10 +50,10 @@ class ReservaTest extends TestCase
         ))->assertStatus(200);
     }
 
-    public function test_reserva_update() {
+    public function test_reserva_update()
+    {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
-
 
 
         $reservas = $this->json('PUT', '/api/reservas/1', array(
@@ -66,7 +66,8 @@ class ReservaTest extends TestCase
         ))->assertStatus(200);
     }
 
-    public function test_reserva_show() {
+    public function test_reserva_show()
+    {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
         $reserva = Reserva::find(2);
@@ -76,10 +77,7 @@ class ReservaTest extends TestCase
             ->assertJsonFragment(array(
                 "dataReservada" => $reserva->dataReservada
             ))->assertStatus(200);
-=======
-    public function testExample()
-    {
-        $this->assertTrue(true);
->>>>>>> develop
+
+
     }
 }

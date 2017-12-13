@@ -40,12 +40,25 @@ class ReservaController extends Controller
         $request->validate([
             'quantidade' => 'required',
             'dataReservada' => 'required',
-            'cliente_id' => 'required',
         ]);
 
         $reserva = $request->all();
-
-        Reserva::create($reserva);
+        $cliente = Cliente::where('nome', '=', $reserva['cliente']['nome'])->first();
+        $pagamentoAssert = false;
+        if($reserva['pagamento']) {
+            $pagamento = Pagamento::create([
+                "valor" => 100,
+                "dataPagamento" => new DateTime('now')
+            ]);
+            $pagamentoAssert = true;
+        }
+        Reserva::create([
+            "dataReservada" => $reserva['dataReservada'],
+            "cliente_id" => $cliente->id,
+            "quadra_id" => $reserva['quadra'],
+            "quantidade" => $reserva['quantidade'],
+            "pagamento_id" => $pagamentoAssert ? $pagamento->id : null
+        ]);
 
         // $reg = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();
 

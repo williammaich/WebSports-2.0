@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Reserva;
+use DateTime;
 use Illuminate\Http\Request;
 
 class ReservaController extends Controller
@@ -46,7 +47,7 @@ class ReservaController extends Controller
         $cliente = \App\Cliente::where('nome', '=', $reserva['cliente']['nome'])->first();
         $pagamentoAssert = false;
         if($reserva['pagamento']) {
-            $pagamento = Pagamento::create([
+            $pagamento = \App\Pagamento::create([
                 "valor" => 100,
                 "dataPagamento" => new DateTime('now')
             ]);

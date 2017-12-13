@@ -112,8 +112,10 @@ class ReservaController extends Controller
         if (isset($reserva['quadra'])) {
             $reg->quadra->update($reserva['quadra']);
         }
-        if (isset($reserva['pagamento'])) {
-            $reg->pagamento->update($reserva['pagamento']);
+        if ($reserva['pagamento']) {
+            $reg->pagamento_id = 2;
+        } else {
+            $reg->pagamento_id = 1;
         }
 
         $reg->update($reserva);

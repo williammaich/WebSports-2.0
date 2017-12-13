@@ -57,9 +57,8 @@ class ClienteController extends Controller
             "endereco_id" => $endereco->id,
         ]);
 
-        return response(200)->json([
-            "status" => "Cadastrado com sucesso"
-        ]);
+        return response(["status" => "Cadastrado com sucesso"], 200);
+
     }
 
     /**
@@ -105,9 +104,8 @@ class ClienteController extends Controller
 
         $reg->update($cliente);
 
-        return response(200)->json([
-            "status" => "Atualizado com sucesso"
-        ]);
+        return response(["status" => "Atualizado com sucesso"], 200);
+
     }
 
     /**
@@ -122,8 +120,6 @@ class ClienteController extends Controller
 
         $reg->delete();
 
-        return response(200)->json([
-            "status" => "Removido com sucesso"
-        ]);
+        return response(["status" => "Removido com sucesso"], 200);
     }
 }

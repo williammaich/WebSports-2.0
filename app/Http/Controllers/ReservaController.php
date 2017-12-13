@@ -66,9 +66,8 @@ class ReservaController extends Controller
         // $reg->create($reserva);
 
 
-        return response(200)->json([
-            "status" => "Cadastrado com sucesso"
-        ]);
+        return response(["status" => "Cadastrado com sucesso"], 200);
+
     }
 
     /**
@@ -119,9 +118,8 @@ class ReservaController extends Controller
 
         $reg->update($reserva);
 
-        return response(200)->json([
-            "status" => "Alterado com sucesso"
-        ]);
+        return response(["status" => "Alterado com sucesso"], 200);
+
     }
 
     /**
@@ -136,8 +134,7 @@ class ReservaController extends Controller
 
         $reg->delete();
 
-        return response(200)->json([
-            "status" => "Removido com sucesso"
-        ]);
+        return response(["status" => "Removido com sucesso"], 200);
+
     }
 }

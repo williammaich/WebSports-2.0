@@ -41,9 +41,8 @@ class PagamentoController extends Controller
 
         Pagamento::create($pagamento);
 
-        return response(200)->json([
-            "status" => "Cadastrado com sucesso"
-        ]);
+        return response(["status" => "Cadastrado com sucesso"], 200);
+
     }
 
     /**
@@ -83,9 +82,8 @@ class PagamentoController extends Controller
 
         $reg->update($pagamento);
 
-        return response(200)->json([
-            "status" => "Atualizado com sucesso"
-        ]);
+        return response(["status" => "Atualizado com sucesso"], 200);
+
     }
 
     /**
@@ -100,8 +98,7 @@ class PagamentoController extends Controller
 
         $reg->delete();
 
-        return response(200)->json([
-            "status" => "Removido com sucesso"
-        ]);
+        return response(["status" => "Removido com sucesso"], 200);
+
     }
 }

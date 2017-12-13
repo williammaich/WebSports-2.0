@@ -78,6 +78,14 @@ ou
    localhost:8000
 ```
 
+**Para Rodar os Testes**
+
+Para rodar os testes abra o terminal e digite.
+
+```
+   vendor\bin\phpunit --verbose
+```
+
 
 
 ### Tecnologias  

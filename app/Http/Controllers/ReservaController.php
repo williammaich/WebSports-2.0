@@ -43,7 +43,7 @@ class ReservaController extends Controller
         ]);
 
         $reserva = $request->all();
-        $cliente = Cliente::where('nome', '=', $reserva['cliente']['nome'])->first();
+        $cliente = \App\Cliente::where('nome', '=', $reserva['cliente']['nome'])->first();
         $pagamentoAssert = false;
         if($reserva['pagamento']) {
             $pagamento = Pagamento::create([

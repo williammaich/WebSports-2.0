@@ -49,7 +49,9 @@ class EnderecoController extends Controller
 
         Endereco::create($endereco);
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Cadastrado com sucesso"
+        ]);
     }
 
     /**
@@ -91,7 +93,9 @@ class EnderecoController extends Controller
 
         $reg->update($endereco);
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Alterado com sucesso"
+        ]);
     }
 
     /**
@@ -106,6 +110,8 @@ class EnderecoController extends Controller
 
         $reg->delete();
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Removido com sucesso"
+        ]);
     }
 }

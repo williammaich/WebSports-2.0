@@ -57,7 +57,9 @@ class ClienteController extends Controller
             "endereco_id" => $endereco->id,
         ]);
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Cadastrado com sucesso"
+        ]);
     }
 
     /**
@@ -103,7 +105,9 @@ class ClienteController extends Controller
 
         $reg->update($cliente);
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Atualizado com sucesso"
+        ]);
     }
 
     /**
@@ -118,6 +122,8 @@ class ClienteController extends Controller
 
         $reg->delete();
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Removido com sucesso"
+        ]);
     }
 }

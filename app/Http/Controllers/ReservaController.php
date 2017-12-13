@@ -66,7 +66,9 @@ class ReservaController extends Controller
         // $reg->create($reserva);
 
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Cadastrado com sucesso"
+        ]);
     }
 
     /**
@@ -117,7 +119,9 @@ class ReservaController extends Controller
 
         $reg->update($reserva);
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Alterado com sucesso"
+        ]);
     }
 
     /**
@@ -132,6 +136,8 @@ class ReservaController extends Controller
 
         $reg->delete();
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Removido com sucesso"
+        ]);
     }
 }

@@ -50,7 +50,9 @@ class UserController extends Controller
         User::create($dadosFormulario);
 
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Cadastrado com sucesso"
+        ]);
 
     }
 
@@ -95,7 +97,9 @@ class UserController extends Controller
         // realiza a alteração
         $reg->update($dadosFormulario);
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Alterado com sucesso"
+        ]);
     }
 
     /**
@@ -112,6 +116,8 @@ class UserController extends Controller
         // Deleta
         $reg->delete();
 
-        return $this->index();
+        return response(200)->json([
+            "status" => "Removido com sucesso"
+        ]);
     }
 }

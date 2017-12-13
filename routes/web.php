@@ -17,5 +17,11 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/pdf', function (){
+    return view('pdf');
+});
+
+Route::get('/gerarPdf', 'PDFController@makePdf');
+
 //Route::resource('users', 'UserController');
 

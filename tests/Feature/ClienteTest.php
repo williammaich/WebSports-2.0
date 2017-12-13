@@ -32,7 +32,7 @@ class ClienteTest extends TestCase
         $clientes = $this->json('POST', '/api/clientes/', array(
             "nome" => "Miguel Boanova",
             "email" => "mgl.deadly@gmail.com",
-            "cpf" => "038.121.140.11",
+            "cpf" => "03812114011",
             "saldo" => 200,
             "endereco" => array(
                 "rua" => "Rua Dr João Pessoa",
@@ -50,27 +50,23 @@ class ClienteTest extends TestCase
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
 
-
-
-        $clientes = $this->json('PUT', '/api/clientes/1', array(
+        $clientes = $this->json('PUT', '/api/clientes/3', array(
             "nome" => "Miguel Novack",
             "endereco" => array(
-                "rua" => "Rua Dr João Pessoa",
+                "rua" => "Rua Dr Joao Pessoa",
             )
         ))->assertJsonFragment(array(
-            "endereco" => array(
-                "rua" => "Rua Dr João Pessoa"
-            )
+                "rua" => "Rua Dr Joao Pessoa"
         ))->assertStatus(200);
     }
 
     public function test_client_show() {
         $user = factory(\App\User::class)->create();
         $this->actingAs($user, 'api');
-        $cliente = Cliente::find(2);
+        $cliente = Cliente::find(3);
 
 
-        $clientes = $this->json('GET', '/api/clientes/2')
+        $clientes = $this->json('GET', '/api/clientes/3')
             ->assertJsonFragment(array(
                 "nome" => $cliente->nome
             ))->assertStatus(200);

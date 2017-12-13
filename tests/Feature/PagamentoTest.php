@@ -40,8 +40,7 @@ class PagamentoTest extends TestCase
 
 
         ))->assertJsonFragment(array(
-            "valor" => 200,
-            "dataPagamento" => "2017-11-11 11:52:04"
+            "status" => "Cadastrado com sucesso"
         ))->assertStatus(200);
     }
 
@@ -56,8 +55,7 @@ class PagamentoTest extends TestCase
 
 
         ))->assertJsonFragment(array(
-            "valor" => 200
-
+            "status" => "Alterado com sucesso"
         ))->assertStatus(200);
     }
 

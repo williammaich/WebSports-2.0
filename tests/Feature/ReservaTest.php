@@ -29,6 +29,8 @@ class ReservaTest extends TestCase
 
     }
 
+
+
     public function test_reserva_update()
     {
         $user = factory(\App\User::class)->create();
@@ -40,8 +42,7 @@ class ReservaTest extends TestCase
 
 
         ))->assertJsonFragment(array(
-            "dataReservada" => "2017-11-20 10:00:00"
-
+            "status" => "Alterado com sucesso"
         ))->assertStatus(200);
     }
 

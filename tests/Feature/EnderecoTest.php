@@ -43,8 +43,7 @@ class EnderecoTest extends TestCase
 
 
         ))->assertJsonFragment(array(
-            "rua" => "Olavo Bilac",
-            "numero" =>718
+            "status" => "Cadastrado com sucesso"
         ))->assertStatus(200);
     }
 
@@ -59,8 +58,7 @@ class EnderecoTest extends TestCase
 
 
         ))->assertJsonFragment(array(
-            "rua" => "Olavo Bilac"
-
+            "status" => "Alterado com sucesso"
         ))->assertStatus(200);
     }
 

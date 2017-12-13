@@ -42,7 +42,7 @@ class ClienteTest extends TestCase
                 "cep" => "96010470"
             )
         ))->assertJsonFragment(array(
-            "nome" => "Miguel Boanova"
+            "status" => "Cadastrado com sucesso"
         ))->assertStatus(200);
     }
 
@@ -56,7 +56,7 @@ class ClienteTest extends TestCase
                 "rua" => "Rua Dr Joao Pessoa",
             )
         ))->assertJsonFragment(array(
-                "rua" => "Rua Dr Joao Pessoa"
+            "status" => "Alterado com sucesso"
         ))->assertStatus(200);
     }
 

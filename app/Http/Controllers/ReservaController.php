@@ -58,7 +58,7 @@ class ReservaController extends Controller
             "cliente_id" => $cliente->id,
             "quadra_id" => $reserva['quadra'],
             "quantidade" => $reserva['quantidade'],
-            "pagamento_id" => $pagamentoAssert ? $pagamento->id : null
+            "pagamento_id" => $pagamentoAssert ? $pagamento->id : 1
         ]);
 
         // $reg = Reserva::with('Cliente', 'Pagamento', 'Quadra')->get();

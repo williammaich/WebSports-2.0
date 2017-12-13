@@ -105,7 +105,6 @@ class ReservaController extends Controller
         $reserva = $request->all();
 
         $reg = Reserva::with('Cliente', 'Pagamento', 'Quadra')->find($id);
-
         if (isset($reserva['cliente'])) {
             $reg->cliente->update($reserva['cliente']);
         }
@@ -114,9 +113,9 @@ class ReservaController extends Controller
         }
         if (isset($reserva['pagamento'])) {
             if ($reserva['pagamento']) {
-                $reg->pagamento_id = 2;
+                $reg['pagamento_id'] = 2;
             } else {
-                $reg->pagamento_id = 1;
+                $reg['pagamento_id'] = 1;
             }
         }
 

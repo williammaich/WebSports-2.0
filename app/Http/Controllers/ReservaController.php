@@ -46,7 +46,7 @@ class ReservaController extends Controller
         $reserva = $request->all();
         $cliente = \App\Cliente::where('nome', '=', $reserva['cliente']['nome'])->first();
         $pagamentoAssert = false;
-        if($reserva['pagamento']) {
+        if ($reserva['pagamento']) {
             $pagamento = \App\Pagamento::create([
                 "valor" => 100,
                 "dataPagamento" => new DateTime('now')
@@ -112,10 +112,12 @@ class ReservaController extends Controller
         if (isset($reserva['quadra'])) {
             $reg->quadra->update($reserva['quadra']);
         }
-        if ($reserva['pagamento']) {
-            $reg->pagamento_id = 2;
-        } else {
-            $reg->pagamento_id = 1;
+        if (isset($reserva['pagamento'])) {
+            if ($reserva['pagamento']) {
+                $reg->pagamento_id = 2;
+            } else {
+                $reg->pagamento_id = 1;
+            }
         }
 
         $reg->update($reserva);

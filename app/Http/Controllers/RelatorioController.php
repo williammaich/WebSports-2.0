@@ -40,7 +40,7 @@ class RelatorioController extends Controller
        *          ];
        * ]
        */
-      $month = \App\Reserva::all(['id'])->groupBy(function($val) {
+      $month = \App\Reserva::all(['dataReservada'])->groupBy(function($val) {
           return \Carbon\Carbon::parse($val->dataReservada)->format('m');
       });
 

@@ -29,28 +29,6 @@ class ReservaTest extends TestCase
 
     }
 
-
-    public function test_reserva_create()
-    {
-        $user = factory(\App\User::class)->create();
-        $this->actingAs($user, 'api');
-
-        $reservas = $this->json('POST', '/api/reservas/', array(
-
-            "dataReservada" => "2017-11-20 10:00:00",
-            "quantidade" => 3,
-            "quadra_id" => 1,
-            "pagamento_id" => 1,
-            "cliente_id" => 3,
-            "created_at" => date('Y-m-d h:i:s'),
-            "updated_at" => date('Y-m-d h:i:s')
-
-
-        ))->assertJsonFragment(array(
-            "dataReservada" => "2017-11-20 10:00:00"
-        ))->assertStatus(200);
-    }
-
     public function test_reserva_update()
     {
         $user = factory(\App\User::class)->create();

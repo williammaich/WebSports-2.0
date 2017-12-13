@@ -104,7 +104,7 @@ class ClienteController extends Controller
 
         $reg->update($cliente);
 
-        return response(["status" => "Alterado  com sucesso"], 200);
+        return response(["status" => "Alterado com sucesso"], 200);
 
     }
 

@@ -39,6 +39,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:191',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+        ]);
+
         $dadosFormulario = $request->all();
 
         User::create($dadosFormulario);
@@ -56,7 +62,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::find($id)->toJson();
     }
 
     /**
@@ -79,6 +85,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         // obtém os dados do form
         $dadosFormulario = $request->all();
 

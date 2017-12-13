@@ -37,6 +37,10 @@ class TipoQuadraController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'descricao' => 'required|max:100',
+        ]);
+
         $tipoQuadra = $request->all();
 
         TipoQuadra::create($tipoQuadra);
@@ -52,7 +56,7 @@ class TipoQuadraController extends Controller
      */
     public function show($id)
     {
-        //
+        return TipoQuadra::find($id);
     }
 
     /**
@@ -75,6 +79,7 @@ class TipoQuadraController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $tipoQuadra = $request->all();
 
         $reg = TipoQuadra::find($id);

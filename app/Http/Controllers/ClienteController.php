@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Endereco;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -37,9 +38,24 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = Cliente::with('Endereco')->get();
+        $request->validate([
+            'nome' => 'required|max:150',
+            'email' => 'required|max:120',
+            'cpf' => 'required|max:11',
+        ]);
 
-        Cliente::create($cliente);
+        // $cliente = Cliente::with('Endereco')->get();
+
+        $cliente = $request->all();
+        $endereco = Endereco::create($cliente['endereco']);
+
+        Cliente::create([
+            "nome" => $cliente['nome'],
+            "email" => $cliente['email'],
+            "cpf" => $cliente['cpf'],
+            "saldo" => $cliente['saldo'],
+            "endereco_id" => $endereco->id,
+        ]);
 
         return $this->index();
     }
@@ -52,7 +68,7 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        //
+        return Cliente::with('Endereco')->find($id);
     }
 
     /**
@@ -75,12 +91,14 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $cliente = $request->all();
 
-        $reg = Cliente::with('Endereco')->find($id);
+        $reg = Cliente::with('endereco')->where('id', '=', $id)->first();
+
 
         if(isset($cliente['endereco'])){
-        $reg->endereco->update($cliente['endereco']);
+             $reg->endereco->update($cliente['endereco']);
         }
 
         $reg->update($cliente);

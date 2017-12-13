@@ -18,7 +18,7 @@ class AddRelacionamentoTipoQuadraQuadraTable extends Migration
 
             $table->foreign('tipoQuadra_id')
                 ->references('id')->on('tipo_quadras')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
         });
     }
 

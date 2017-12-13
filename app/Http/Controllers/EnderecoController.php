@@ -38,6 +38,13 @@ class EnderecoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'rua' => 'required|max:120',
+            'numero' => 'required',
+            'cidade' => 'required|max:45',
+            'cep' => 'required',
+        ]);
+
         $endereco = $request->all();
 
         Endereco::create($endereco);
@@ -53,7 +60,7 @@ class EnderecoController extends Controller
      */
     public function show($id)
     {
-        //
+        return Endereco::find($id);
     }
 
     /**
@@ -76,6 +83,8 @@ class EnderecoController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+
         $endereco = $request->all();
 
         $reg = Endereco::find($id);

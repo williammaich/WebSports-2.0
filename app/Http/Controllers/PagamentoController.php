@@ -52,7 +52,7 @@ class PagamentoController extends Controller
      */
     public function show($id)
     {
-        //
+        return Pagamento::find($id);
     }
 
     /**

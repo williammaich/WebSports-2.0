@@ -35,4 +35,5 @@ Route::group(['middleware' => ['cors', 'auth:api']], function () {
     Route::get('/relatorios', 'RelatorioController@index');
 });
 
+  
 

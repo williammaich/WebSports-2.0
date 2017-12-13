@@ -82,7 +82,7 @@ class PagamentoController extends Controller
 
         $reg->update($pagamento);
 
-        return response(["status" => "Atualizado com sucesso"], 200);
+        return response(["status" => "Alterado com sucesso"], 200);
 
     }
 
